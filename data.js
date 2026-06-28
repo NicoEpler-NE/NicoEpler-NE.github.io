@@ -25,13 +25,13 @@ const portfolioData = {
             year: "2024-2025",
             title: "M.Eng (Electronic)",
             institution: "Stellenbosch University",
-            description: "Master of Engineering in Electronic Engineering"
+            description: "Master of Engineering in Electronic Engineering (cum laude)"
         },
         {
             year: "2020-2023",
             title: "B.Eng (Mechatronic)",
             institution: "Stellenbosch University",
-            description: "Bachelor of Engineering in Mechatronics - Average: 73.0%"
+            description: "Bachelor of Engineering in Mechatronics"
         },
         {
             year: "2015-2019",
