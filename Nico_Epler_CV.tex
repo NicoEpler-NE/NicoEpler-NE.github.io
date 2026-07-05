@@ -1,0 +1,624 @@
+\documentclass[10pt,a4paper]{article}
+
+% ------------------------------------------------------------------
+% Nico Epler CV template
+% Compile with: pdflatex Nico_Epler_CV.tex
+% ------------------------------------------------------------------
+
+\usepackage[a4paper,margin=1.15cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Main font
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+% For heavier serif name styling
+\usepackage{newtxtext}
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{eso-pic}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{microtype}
+\usepackage{fontawesome5}
+\usepackage{setspace}
+\usepackage{ragged2e}
+% \linespread{1.05} %Custom line spacing
+
+% ------------------------------------------------------------------
+% Colours
+% ------------------------------------------------------------------
+
+\definecolor{sidebar}{HTML}{DDE8F6}   % light blue sidebar
+\definecolor{accent}{HTML}{3D6FB6}    % blue for icons, links and lines
+\definecolor{textgray}{HTML}{111111}  % dark text
+\definecolor{maintext}{HTML}{37444A}  % softer main-column text
+\definecolor{lightline}{HTML}{C8D0D5}
+
+\hypersetup{
+    colorlinks=true,
+    urlcolor=accent,
+    linkcolor=accent
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% ------------------------------------------------------------------
+% Column widths
+% ------------------------------------------------------------------
+
+\newlength{\leftcolwidth}
+\newlength{\rightcolwidth}
+\setlength{\leftcolwidth}{0.68\textwidth}
+\setlength{\rightcolwidth}{0.25\textwidth}
+
+% ------------------------------------------------------------------
+% Page background
+% ------------------------------------------------------------------
+
+\newcommand{\cvpagebg}{%
+\AddToShipoutPictureBG*{%
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[sidebar] ([xshift=-0.30\paperwidth]current page.north east) rectangle (current page.south east);
+\end{tikzpicture}%
+}%
+}
+
+% ------------------------------------------------------------------
+% Section commands
+% ------------------------------------------------------------------
+
+% Main column section title (e.g., "Work Experience")
+% Parameters: #1 = section title text
+% Spacing: 1.5em before, 0.25em after title, 0.55em after line
+\newcommand{\sectiontitle}[1]{%
+  \vspace{1.8em}%
+  \noindent{\Large\color{maintext}\MakeUppercase{#1}}\par\vspace{0.25em}%
+  \noindent{\color{lightline}\hrule height 0.6pt}\vspace{0.55em}%
+}
+
+% Sidebar section title (e.g., "Software and Programming")
+% Parameters: #1 = section title text
+% Spacing: 1.4em before, 0.25em after title, 0.8em after line
+\newcommand{\sidebartitle}[1]{%
+  \vspace{1.4em}%
+  \noindent{\large\bfseries\color{textgray}#1}\par\vspace{-0.4em}%
+  \noindent{\color{accent}\hrule height 0.6pt}\vspace{0.5em}%
+}
+
+% Sidebar row with icon and text (e.g., phone icon + number)
+% Parameters: #1 = icon (fontawesome), #2 = text content
+% Icon column width: 0.8cm, spacing: 0.65em after each row
+\newcommand{\sidebarrow}[2]{%
+  \begin{tabularx}{\linewidth}{@{}>{\centering\arraybackslash}p{0.8cm} X@{}}
+    {\Large\color{accent}#1} & {\color{textgray}#2}
+  \end{tabularx}
+  \vspace{0.3em}
+}
+
+% CV entry for work experience
+% Parameters: #1 = position title, #2 = date, #3 = company, #4 = location, #5 = description
+% Spacing: 0.2em between lines, 0.8em after entry
+% \newcommand{\cventry}[5]{%
+%   {\large\color{maintext}#1\hfill\normalsize #2}\par
+%   \vspace{0.2em} % Add space between job title and company
+%   {\color{accent}\large #3\hfill\normalsize\color{maintext}#4}\par
+%   \vspace{0.2em}#5\vspace{0.8em} % Add space between company and description, and after description
+% }
+\newcommand{\cventry}[5]{%
+  \noindent{\normalsize\bfseries\color{textgray}#1 | #3, #4}\par
+  \vspace{0.15em}
+  \noindent{\small\bfseries\color{textgray}#2}\par
+  \vspace{-1.0em}
+  \noindent{\color{maintext}#5}%
+  \vspace{1.0em}
+}
+
+% \newcommand{\cventry}[5]{%
+%   {\normalsize\bfseries\color{textgray}#1 | #3, #4}\par
+%   \vspace{0.15em}
+%   {\small\bfseries\color{textgray}#2}\par
+%   \vspace{0.35em}
+%   {\color{maintext}#5}%
+%   \vspace{0.9em}
+% }
+
+
+\newcommand{\compactitems}{%
+  \setlist[itemize]{
+    leftmargin=1.2em,
+    itemsep=0.12em,
+    topsep=0.15em,
+    parsep=0pt,
+    partopsep=0pt
+  }%
+}
+\compactitems
+
+
+
+\newcommand{\skillitem}[1]{#1\par\vspace{0.25em}}
+
+% ------------------------------------------------------------------
+% Page layout command
+% ------------------------------------------------------------------
+
+\newcommand{\cvpage}[2]{%
+  \clearpage
+  \cvpagebg
+  \vspace*{-0.2cm}
+  % \begin{minipage}[t][0.965\textheight][t]{\leftcolwidth}
+  %   \raggedright\color{maintext}\small #1
+  % \end{minipage}\hfill
+  \begin{minipage}[t][0.965\textheight][t]{\leftcolwidth}
+    \justifying\color{maintext}\small #1
+  \end{minipage}\hfill
+  % \begin{minipage}[t][0.965\textheight][t]{\rightcolwidth}
+  %   \raggedright\color{textgray}\small #2
+  % \end{minipage}
+  \begin{minipage}[t][0.965\textheight][t]{\rightcolwidth}
+    \raggedright\color{textgray}\small #2
+  \end{minipage}
+}
+
+% ------------------------------------------------------------------
+% Document
+% ------------------------------------------------------------------
+
+\begin{document}
+
+\cvpage{%
+  {\fontsize{42}{42}\selectfont\rmfamily\bfseries\color{maintext}\textls[80]{NICO EPLER}}\par
+  \vspace{1em}
+
+  {\fontsize{18}{22}\selectfont\color{accent}Master of Engineering (Electronic)}\par
+  \vspace{0.5em}
+
+
+  %------------------------------------------------------------------
+  % Professional Summary
+  %------------------------------------------------------------------
+  \sectiontitle{Professional Summary}
+
+  \noindent Electronic engineer (M.Eng Electronic \textit{cum laude}, B.Eng Mechatronic) specialising in UAV systems and autonomous robotics. Currently UAS Engineer at Flying Robot (Pty) Ltd, leading system architecture, integration and flight validation for large-scale ISR quadcopter platforms. Core expertise spans robotic hardware and software development, autonomous systems development, ROS 2/SLAM-based autonomy, computer vision and sensor integration, complemented by embedded hardware design and PCB development. Published researcher in autonomous underground mapping, with an international track record spanning UAV systems engineering, mechatronic consulting and mechanical fabrication across diverse industrial and research settings.
+
+
+  %------------------------------------------------------------------
+  % Core Competencies
+  %------------------------------------------------------------------
+  \sectiontitle{Core Competencies}
+
+  \begin{itemize}
+    % \item \textcolor{red}{make applicable to job-maybe add Expertise in}
+    \item \textbf{Robotics, Autonomy and Perception} -- Practical experience with ROS 2, visual-inertial odometry, SLAM, path planning, autonomous exploration frameworks, computer vision and image processing.
+    \item \textbf{UAV Systems Engineering} -- Extensive experience in UAV platform development, system architecture, subsystem integration, flight testing and operational validation.
+    \item \textbf{System Integration and Validation} -- Skilled in combining hardware, software, sensors and payloads into functional systems through simulation, testing, debugging and iterative improvement.
+    \item \textbf{Embedded and Electronic Systems} -- Experience in sensor interfacing, electronic circuit design, custom PCB design, communication interfaces and hardware validation.
+    % \item \textbf{Mechanical Design and Prototyping} -- Experience in CAD modelling, design-for-manufacturing, additive manufacturing, fabrication drawings, practical prototyping and real-world assembly constraints.
+    \item \textbf{Mechanical Design and Prototyping} -- CAD modelling, design-for-manufacturing, additive manufacturing, fabrication drawings and practical prototyping with real-world assembly constraints.
+  \end{itemize}
+
+
+  % \begin{itemize}
+  %   \item \textbf{Robotics, Autonomy and Perception} -- ROS 2, visual-inertial odometry, SLAM, path planning, autonomous exploration frameworks, computer vision and image processing.
+  %   \item \textbf{UAV Systems Engineering} -- Platform development, system architecture, subsystem integration, flight testing and operational validation.
+  %   \item \textbf{System Integration and Validation} -- Combining hardware, software, sensors and payloads into functional systems through simulation, testing, debugging and iterative improvement.
+  %   \item \textbf{Computer Vision and Sensor Integration} -- Sensor fusion, image processing and perception pipelines supporting autonomous navigation and mapping.
+  %   \item \textbf{Embedded and Electronic Systems} -- Sensor interfacing, electronic circuit design, custom PCB design, communication interfaces and hardware validation.
+  %   \item \textbf{Mechanical Design and Prototyping} -- CAD modelling, design-for-manufacturing, fabrication drawings, practical prototyping and real-world assembly constraints.
+  % \end{itemize}
+
+
+  %------------------------------------------------------------------
+  % Publications
+  %------------------------------------------------------------------
+  \sectiontitle{Publications}
+
+  \begin{itemize}[leftmargin=1.2em, itemsep=0.2em, topsep=0.15em]
+    \item N. Epler and C. Fisher, ``Autonomous Quadcopter for Rapid Underground Mine Mapping and Exploration,'' \textit{MATEC Web of Conferences}, vol.~417, article~04019, 2025. doi: \href{https://doi.org/10.1051/matecconf/202541704019}{10.1051/matecconf/202541704019}.
+  \end{itemize}
+
+  
+
+  %------------------------------------------------------------------
+  % Work Experience
+  %------------------------------------------------------------------
+  \sectiontitle{Work Experience}
+
+  \cventry{Unmanned Aerial Systems Engineer}{Oct 2025 -- Present}{Flying Robot (Pty) Ltd}{South Africa}{%
+    \begin{itemize}
+      % \item Designed UAV system architecture and carried out system development, integration, and testing, with a focus on large-scale ISR quadcopter platforms.
+      % \item Performed flight-control tuning, UAV test piloting and system analysis to improve platform reliability and operational performance.
+      % % \item Performed flight-control tuning, UAV test piloting and system troubleshooting to improve platform reliability and operational performance.
+      % % \item Performed UAV test piloting, system analysis and flight-control tuning to improve platform reliability and operational performance.
+      % \item Designed and integrated embedded sensors and other payloads, supporting end-to-end UAV development from hardware design through to flight validation.
+      % \item Designed electronic circuits and custom PCBs for embedded sensors.
+      % \item Integrated various different embedded sensors and payloads, supporting end-to-end UAV development from hardware design and prototyping through to flight validation.
+      % \item Integrated and tested system communication interfaces, including serial, I\textsuperscript{2}C, CAN, networking and wireless communication links.
+      % \item a
+
+      \item Designed UAV system architecture and carried out platform development, configuration, subsystem integration and validation, with a focus on large-scale ISR quadcopter platforms.
+      \item Performed flight-control tuning, UAV test piloting and system analysis to improve platform reliability and operational performance.
+      \item Designed electronic circuits and custom PCBs for embedded sensors.
+      \item Worked extensively with communication interfaces, including serial, I\textsuperscript{2}C, CAN, networking and wireless communication links.
+    \end{itemize}
+  }
+
+  \cventry{Graduate Research Engineer -- Master's Thesis}{2024 -- 2025}{Stellenbosch University}{South Africa}{%
+    \begin{itemize}
+      \item Designed and developed a UAV platform for autonomous underground mine mapping and exploration (GNSS-denied).
+      % \item Designed, configured and validated the UAV software-hardware stack, combining embedded hardware, flight-control software, ROS 2 development, visual-inertial odometry and SLAM components.
+      \item Designed, configured and validated a complete UAV autonomy stack, combining embedded hardware, flight-control software, ROS 2 development, visual-inertial odometry and SLAM components.
+      \item Developed an end-to-end autonomous exploration framework for underground environments.
+      \item Tested and evaluated the system through simulation and real-world indoor flight experiments, focusing on mapping performance, autonomy and platform reliability.
+      % \item Developed an end-to-end autonomous exploration framework using ROS for underground environments, integrating sensor fusion, path planning, visual-inertial odometry and SLAM.
+    \end{itemize}
+  }
+
+  \cventry{UAV Systems and Product Consultant}{Jan 2024 -- Dec 2025}{Phantom Pilots}{South Africa}{%
+    \begin{itemize}
+      \item Assisted with quadcopter component selection, system integration and testing for early-stage UAV product development.
+      \item Consulted on and developed mechatronic side projects, providing practical design input, component-selection support, and system-level development.
+    \end{itemize}
+  }
+
+  % \cventry{Engineering Design and Drafting Intern}{2022 + 2023}{Metallum Fabrications}{Namibia}{%
+  %   \begin{itemize}
+  %     % \item Designed, drafted and assisted with the assembly of stainless-steel and mild-steel assemblies.
+  %     % \item Held responsibility for the end-to-end development of a large-scale Caterpillar belly plate and protective shield, from CAD design and fabrication drawings through to cutting, welding, fitting and installation.
+  %     \item Held responsibility for the end-to-end development of steel assemblies, from CAD design and fabrication drawings through to cutting, welding, fitting and installation.
+  %     \item Gained hands-on exposure to workshop practices, manufacturing drawings, practical fabrication constraints and tolerancing.
+  %   \end{itemize}
+  % }
+
+
+
+
+
+ 
+
+
+
+
+  
+
+
+
+
+
+
+
+
+% Side Bar!!!!-------------------------------------------------------------------------------
+
+}{%
+  % Photo Edits
+  \begin{center}
+    \vspace*{-0.2cm}
+    \hspace*{-0.3cm}
+    \begin{tikzpicture}
+      \clip (0,0) circle (3.1cm);
+      \node at (0,-0.3) {\includegraphics[width=5.2cm]{nico_photo.jpg}};
+    \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.8em}
+
+  \sidebartitle{Personal Details}
+
+  \sidebarrow{\faPhone}{+27 82 653 7180}
+
+  \sidebarrow{\faEnvelope}{%
+    \href{mailto:nicoepler66@gmail.com}{nicoepler66@gmail.com}%
+  }
+
+  \sidebarrow{\faMapMarker*}{Zurich, Switzerland}
+
+  \sidebarrow{\faLinkedin}{%
+    \href{https://www.linkedin.com/in/nico-epler-8089a5223/}{Nico Epler | LinkedIn}%
+  }
+
+  \sidebarrow{\faGlobe}{%
+    \href{https://nicoepler-ne.github.io/}{nicoepler.com}%
+  }
+
+  
+
+  \vspace{0.4em}
+
+  \textbf{\fontsize{11}{13}\selectfont Nationality:}\par
+  Dual German and Namibian\par
+
+  \vspace{1.2em}
+
+  \textbf{\fontsize{11}{13}\selectfont Languages:}\par
+  German -- Native speaker\par
+  English -- Fluent\par
+  Afrikaans -- Fluent\par
+
+  \sidebartitle{Software and Programming}
+
+  C, R and Python programming\par
+  PLC programming\par
+  MATLAB\par
+  ROS 2\par
+  Computer vision and image processing\par
+  Machine learning and reinforcement learning fundamentals\par
+  EasyEDA\par
+  Autodesk Inventor, Fusion and Onshape\par
+  Microsoft Office: PowerPoint, Word and Excel\par
+
+  \sidebartitle{Soft Skills}
+
+  Strong work ethic\par
+  Honest and reliable\par
+  Organised, punctual and responsible\par
+  Team-oriented\par
+  Innovative\par
+  Eager to learn\par
+  
+
+
+  % \sidebartitle{Technical Skills}
+
+  % Electronic system design, prototyping and validation.\par
+  % Embedded hardware integration and sensor interfacing.\par
+  % UAV system integration, testing and troubleshooting.\par
+  % Mechanical CAD design, design-for-manufacturing and rapid prototyping.\par
+  % Practical fabrication knowledge for manufacturable engineering designs.\par
+
+  % \sidebartitle{Technical Skills}
+
+  % Workshop fabrication: sheet-metal work, turning, milling, welding, grinding and basic mechanical assembly.\par
+  % \vspace{0.35em}
+  % Electrical circuit design and assembly using DC power supplies, oscilloscopes, signal generators, logic gates and basic electronic components.\par
+  % \vspace{0.35em}
+  % Mechanical design and fabrication of steelwork, woodwork and simple concrete structures.\par
+  % \vspace{0.35em}
+  % Basic electric-appliance troubleshooting and repair.\par
+  % \vspace{0.35em}
+  % 3D modelling, CAD design and 3D printing.\par
+  
+}
+
+
+
+
+
+% Second Page starts here!!!!-------------------------------------------------------------------------------
+
+
+
+% ------------------------------------------------------------------
+% Second page - full width without sidebar
+% ------------------------------------------------------------------
+\clearpage
+\vspace*{-0.2cm}
+% \raggedright\color{maintext}\small
+\justifying\color{maintext}\small
+
+
+% \cventry{UAV Systems and Product Consultant}{Jan 2024 -- Dec 2025}{Phantom Pilots}{South Africa}{%
+%     \begin{itemize}
+%       \item Assisted with quadcopter component selection, system integration and testing for early-stage UAV product development.
+%       \item Consulted on and developed mechatronic side projects, providing practical design input, component-selection support, and system-level development.
+%     \end{itemize}
+%   }
+
+
+\cventry{Engineering Design and Drafting Intern}{2022 + 2023}{Metallum Fabrications}{Namibia}{%
+    \begin{itemize}
+      % \item Designed, drafted and assisted with the assembly of stainless-steel and mild-steel assemblies.
+      % \item Held responsibility for the end-to-end development of a large-scale Caterpillar belly plate and protective shield, from CAD design and fabrication drawings through to cutting, welding, fitting and installation.
+      \item Held responsibility for the end-to-end development of steel assemblies, from CAD design and fabrication drawings through to cutting, welding, fitting and installation.
+      \item Gained hands-on exposure to workshop practices, manufacturing drawings, practical fabrication constraints and tolerancing.
+    \end{itemize}
+  }
+
+
+ \vspace{-0.8em}
+
+%------------------------------------------------------------------
+% Mentionable Projects
+%------------------------------------------------------------------
+\sectiontitle{Mentionable Projects}
+
+  \begin{itemize}
+    % \item Designed and developed a quadcopter for autonomous underground mine mapping and exploration in GNSS-denied environments (M.Eng Electronic).
+    \item Designed and developed a quadcopter for autonomous mapping and exploration in GNSS-denied underground mine environments (M.Eng Electronic).
+    \item Designed, constructed and evaluated a handheld 3D laser-line scanner (final-year B.Eng project -- 81\%).
+    \item Designed and implemented a multi-functional light source using an STM microcontroller (Electronic Design).
+    \item Designed and constructed an automatic coin sorter (Mechatronics; Group).
+    \item Designed an internal thickener mechanism for an industrial slurry-settling tank, including drive-system sizing, torque analysis and motor specification (Machine Design; Group).
+    \item Pump-system analysis and recommendation for a mine (Fluid Mechanics; Group).
+    \item Design and part selection for a complete water pump, including manufacturing drawings (Machine Design).
+    % \item Designed and fabricated practical mechanical products, including beehives, wooden bicycle wall mounts, and a Caterpillar belly plate and protective shield (practical fabrication projects).
+    % \item Designed and constructed beehives and frames (personal fabrication project).
+    % \item Designed and constructed wooden bicycle wall mounts (personal fabrication project).
+    % \item Designed and assembled a Caterpillar belly plate and protective shield (industrial fabrication project).
+  \end{itemize}
+
+
+
+
+
+
+
+
+  %------------------------------------------------------------------
+  % Education
+  %------------------------------------------------------------------
+  \sectiontitle{Education}
+
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{Stellenbosch University} -- M.Eng (Electronic), \textit{cum laude} & 2024--2025 \\
+    \end{tabularx}
+
+    %----------------------------------------------------------------------------  
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{Stellenbosch University} -- B.Eng (Mechatronic) & 2020--2023 \\
+    \end{tabularx}
+
+    \vspace{-0.3em}
+    \begin{itemize}[leftmargin=2.2em, itemsep=0pt, topsep=0.15em]
+      \item Golden Key International Honour Society
+    \end{itemize}
+    \vspace{-0.2em}
+
+    %---------------------------------------------------------------------------- 
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{Otjiwarongo Secondary School} & 2015--2019 \\
+    \end{tabularx}
+
+    \vspace{-0.3em}
+    \begin{itemize}[leftmargin=2.2em, itemsep=0pt, topsep=0.15em]
+      % \item Top 8th academic performer in Namibia (Grade 12)
+      \item National top-8 academic performer in Namibia (Grade 12)
+      \item School Representative Council Head Boy
+      \item Dux Scholar throughout high school
+    \end{itemize}
+    \vspace{-0.2em}
+    
+    %---------------------------------------------------------------------------- 
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{Deutsche Privatschule Otjiwarongo} & 2008--2014 \\
+    \end{tabularx}
+
+    % \vspace{-0.3em}
+    % \begin{itemize}[leftmargin=2.2em, itemsep=0pt, topsep=0.15em]
+    %   \item Golden Key International Honour Society
+    % \end{itemize}
+    % \vspace{-0.2em}
+
+
+
+  %------------------------------------------------------------------
+  % Sport \& Cultural Achievements
+  %------------------------------------------------------------------
+  \sectiontitle{Sport \& Cultural Achievements}
+  % \sectiontitle{Sport, Leadership \& Achievements}
+
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{Namibian National Inline Hockey Team} & 2016--2019 \\
+    \end{tabularx}
+
+    \vspace{-0.3em}
+    \begin{itemize}[leftmargin=2.2em, itemsep=0pt, topsep=0.15em]
+      \item Assistant Captain 2018, 2019
+    \end{itemize}
+    \vspace{-0.2em}
+
+    %----------------------------------------------------------------------------  
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{Interactors Board Member} & 2016--2018 \\
+    \end{tabularx}
+
+    \vspace{-0.3em}
+    \begin{itemize}[leftmargin=2.2em, itemsep=0pt, topsep=0.15em]
+      \item President 2018
+    \end{itemize}
+    \vspace{-0.2em}
+
+    %---------------------------------------------------------------------------- 
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{Otjiwarongo Junior Town Council} -- Treasurer & 2016--2017 \\
+    \end{tabularx}
+    
+    %---------------------------------------------------------------------------- 
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{Allan Gray Orbis Foundation Candidate Fellow (Selected fellowship recipient)} & 2020--2023 \\
+    \end{tabularx}
+
+    \vspace{-0.3em}
+    \begin{itemize}[leftmargin=2.2em, itemsep=0pt, topsep=0.15em]
+      \item 2nd place in the 2022 Jamboree Venture Pitch competition, securing grant funding for further development.
+    \end{itemize}
+    \vspace{-0.2em}
+
+    %---------------------------------------------------------------------------- 
+    % \begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+    %   \textbf{\textcolor{red}{6 year CTCT finisher}} -- 109km cycling challenge along CT searoute & 2020--2026 \\
+    % \end{tabularx}
+
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{Six-Time Cape Town Cycle Tour Finisher} -- 109 km cycling event & 2020--2026 \\
+    \end{tabularx}
+
+    %---------------------------------------------------------------------------- 
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{Winner -- SAICE Stellenbosch Bridge Building Competition} & 2022 \\
+    \end{tabularx}
+
+    %---------------------------------------------------------------------------- 
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{Private Tutor} -- Applied Mathematics & 2022 \\
+    \end{tabularx}
+
+    %---------------------------------------------------------------------------- 
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{University Tutor} -- Electro-Techniques & 2024--2025 \\
+    \end{tabularx}
+
+    %---------------------------------------------------------------------------- 
+    \noindent\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X r}
+      \textbf{University Teaching Assistant} -- Computer Programming & 2024 \\
+    \end{tabularx}
+
+
+
+
+
+
+
+
+
+
+  %------------------------------------------------------------------
+  % Interests \& Hobbies
+  %------------------------------------------------------------------
+  \sectiontitle{Interests \& Hobbies}
+
+  \noindent Hiking, cycling, jogging, investing, travelling and exploring the outdoors.
+
+
+
+
+  %------------------------------------------------------------------
+  % Core Competencies
+  %------------------------------------------------------------------
+  % \sectiontitle{Core Competencies}
+  % \textcolor{red}{TODO}
+
+  % \begin{itemize}
+  %   \item \textbf{UAV Systems Engineering} -- UAV platform development, system architecture, payload integration, flight testing and troubleshooting.
+  %   \item \textbf{Embedded and Electronic Systems} -- Embedded hardware integration, sensor interfacing, circuit design, PCB design and system-level validation.
+  %   \item \textbf{Autonomy and Robotics Software} -- ROS 2 development, visual-inertial odometry, SLAM, mapping, path planning and autonomous exploration frameworks.
+  %   \item \textbf{Mechanical Design and Prototyping} -- CAD modelling, design-for-manufacturing, mechanical assembly design, fabrication drawings and practical prototyping.
+  %   \item \textbf{Testing and Validation} -- Simulation, real-world system testing, performance evaluation, debugging and iterative design improvement.
+  % \end{itemize}
+
+  %------------------------------------------------------------------
+  % Core Competencies
+  %------------------------------------------------------------------
+  % \sectiontitle{Core Competencies}
+  % \textcolor{red}{TODO}
+
+  % \begin{itemize}
+  %   \item \textbf{UAV Systems Engineering} -- Platform development, system architecture, payload integration and flight testing.
+  %   \item \textbf{Embedded and Electronic Systems} -- Sensor interfacing, circuit design, PCB design and hardware validation.
+  %   \item \textbf{Robotics and Autonomy} -- ROS 2, visual-inertial odometry, SLAM, mapping, path planning and autonomous exploration.
+  %   \item \textbf{Mechanical Design} -- CAD modelling, design-for-manufacturing, fabrication drawings and practical prototyping.
+  %   \item \textbf{System Testing} -- Simulation, real-world testing, troubleshooting and iterative design improvement.
+  % \end{itemize}
+
+
+
+
+\end{document}
