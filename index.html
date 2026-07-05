@@ -13,8 +13,21 @@
     <div class="background-grid"></div>
     <div class="floating-particles"></div>
     
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="#overview" class="nav-link active" data-tab="overview">Overview</a>
+            <a href="#education" class="nav-link" data-tab="education">Education</a>
+            <a href="#experience" class="nav-link" data-tab="experience">Work Experience</a>
+            <a href="#projects" class="nav-link" data-tab="projects">Projects</a>
+        </div>
+    </nav>
+
     <header class="hero">
         <div class="hero-content">
+            <div class="profile-image-container">
+                <img src="images/profile_photo.svg" alt="Profile Photo" class="profile-image">
+            </div>
             <h1 class="name" id="name">Nico Epler</h1>
             <h2 class="title" id="title">Master of Engineering (Electronic)</h2>
             <div class="contact-info">
@@ -22,7 +35,7 @@
                 <span class="separator">|</span>
                 <span class="contact-link" id="phone">+27 82 653 7180</span>
                 <span class="separator">|</span>
-                <span class="contact-link" id="location">Stellenbosch, South Africa</span>
+                <span class="contact-link" id="location">Zurich, Switzerland</span>
             </div>
             <div class="languages">
                 <span class="language-tag">German (Native)</span>
@@ -30,73 +43,89 @@
                 <span class="language-tag">Afrikaans (Fluent)</span>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <div class="scroll-arrow"></div>
-        </div>
     </header>
 
     <main>
-        <section class="section" id="about">
-            <h2 class="section-title">About Me</h2>
-            <div class="section-content">
-                <p class="about-text" id="about-text">
-                    Electronic Engineer with a Master's degree specializing in autonomous systems and mechatronics. 
-                    Passionate about innovative engineering solutions, with experience in quadcopter development, 
-                    3D laser scanning, and automated systems. Strong background in both hardware and software development, 
-                    with a focus on practical applications in mining and industrial environments.
-                </p>
-            </div>
-        </section>
-
-        <section class="section" id="education">
-            <h2 class="section-title">Education</h2>
-            <div class="timeline" id="education-timeline">
-                <!-- Education items will be populated by JavaScript -->
-            </div>
-        </section>
-
-        <section class="section" id="experience">
-            <h2 class="section-title">Work Experience</h2>
-            <div class="timeline" id="experience-timeline">
-                <!-- Experience items will be populated by JavaScript -->
-            </div>
-        </section>
-
-        <section class="section" id="skills">
-            <h2 class="section-title">Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3 class="skill-category-title">Programming & Software</h3>
-                    <div class="skill-tags" id="software-skills">
-                        <!-- Skills will be populated by JavaScript -->
-                    </div>
+        <!-- Overview Tab -->
+        <section class="tab-content active" id="overview">
+            <div class="section">
+                <h2 class="section-title">About Me</h2>
+                <div class="section-content">
+                    <p class="about-text" id="about-text">
+                        Electronic Engineer with a Master's degree specializing in autonomous systems and mechatronics. 
+                        Passionate about innovative engineering solutions, with experience in quadcopter development, 
+                        3D laser scanning, and automated systems. Strong background in both hardware and software development, 
+                        with a focus on practical applications in mining and industrial environments.
+                    </p>
                 </div>
-                <div class="skill-category">
-                    <h3 class="skill-category-title">Technical & Engineering</h3>
-                    <div class="skill-tags" id="technical-skills">
-                        <!-- Skills will be populated by JavaScript -->
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3 class="skill-category-title">Programming & Software</h3>
+                        <div class="skill-tags" id="software-skills">
+                            <!-- Skills will be populated by JavaScript -->
+                        </div>
                     </div>
-                </div>
-                <div class="skill-category">
-                    <h3 class="skill-category-title">Soft Skills</h3>
-                    <div class="skill-tags" id="soft-skills">
-                        <!-- Skills will be populated by JavaScript -->
+                    <div class="skill-category">
+                        <h3 class="skill-category-title">Technical & Engineering</h3>
+                        <div class="skill-tags" id="technical-skills">
+                            <!-- Skills will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 class="skill-category-title">Soft Skills</h3>
+                        <div class="skill-tags" id="soft-skills">
+                            <!-- Skills will be populated by JavaScript -->
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section class="section" id="projects">
-            <h2 class="section-title">Notable Projects</h2>
-            <div class="projects-grid" id="projects-grid">
-                <!-- Projects will be populated by JavaScript -->
+            <div class="section">
+                <h2 class="section-title">Publications</h2>
+                <div class="publications-list" id="publications-list">
+                    <!-- Publications will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Achievements & Leadership</h2>
+                <div class="achievements-grid" id="achievements-grid">
+                    <!-- Achievements will be populated by JavaScript -->
+                </div>
             </div>
         </section>
 
-        <section class="section" id="achievements">
-            <h2 class="section-title">Achievements & Leadership</h2>
-            <div class="achievements-grid" id="achievements-grid">
-                <!-- Achievements will be populated by JavaScript -->
+        <!-- Education Tab -->
+        <section class="tab-content" id="education">
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="timeline" id="education-timeline">
+                    <!-- Education items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Experience Tab -->
+        <section class="tab-content" id="experience">
+            <div class="section">
+                <h2 class="section-title">Work Experience</h2>
+                <div class="timeline" id="experience-timeline">
+                    <!-- Experience items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Tab -->
+        <section class="tab-content" id="projects">
+            <div class="section">
+                <h2 class="section-title">Notable Projects</h2>
+                <div class="projects-grid" id="projects-grid">
+                    <!-- Projects will be populated by JavaScript -->
+                </div>
             </div>
         </section>
     </main>

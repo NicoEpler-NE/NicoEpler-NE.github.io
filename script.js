@@ -7,7 +7,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     populateContent();
     initScrollAnimations();
-    initSmoothScrolling();
+    initTabNavigation();
 });
 
 // Populate all content from data.js
@@ -59,6 +59,16 @@ function populateContent() {
         projectsGrid.appendChild(card);
     });
 
+    // Publications
+    if (portfolioData.publications) {
+        const publicationsList = document.getElementById('publications-list');
+        publicationsList.innerHTML = '';
+        portfolioData.publications.forEach(pub => {
+            const item = createPublicationItem(pub);
+            publicationsList.appendChild(item);
+        });
+    }
+
     // Achievements
     const achievementsGrid = document.getElementById('achievements-grid');
     achievementsGrid.innerHTML = '';
@@ -100,15 +110,36 @@ function createProjectCard(project) {
     const card = document.createElement('div');
     card.className = 'project-card';
     
+    // Use image from project data or fallback to generated filename
+    const imagePath = project.image ? `images/${project.image}` : '';
+    
     const tagsHtml = project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('');
     
+    const imageHtml = imagePath ? `<img src="${imagePath}" alt="${project.title}" class="project-image">` : '';
+    
     card.innerHTML = `
+        ${imageHtml}
         <div class="project-title">${project.title}</div>
         <div class="project-description">${project.description}</div>
         <div class="project-tags">${tagsHtml}</div>
     `;
     
     return card;
+}
+
+// Create a publication item
+function createPublicationItem(pub) {
+    const item = document.createElement('div');
+    item.className = 'publication-item';
+    
+    item.innerHTML = `
+        <div class="publication-title">${pub.title}</div>
+        <div class="publication-authors">${pub.authors}</div>
+        <div class="publication-journal">${pub.journal}</div>
+        <div class="publication-doi">DOI: ${pub.doi}</div>
+    `;
+    
+    return item;
 }
 
 // Create an achievement item
@@ -147,16 +178,31 @@ function initScrollAnimations() {
     });
 }
 
-// Initialize smooth scrolling
-function initSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+// Initialize tab navigation
+function initTabNavigation() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+            
+            // Remove active class from all links and contents
+            navLinks.forEach(l => l.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked link
+            this.classList.add('active');
+            
+            // Show corresponding tab content
+            const tabId = this.getAttribute('data-tab');
+            const tabContent = document.getElementById(tabId);
+            if (tabContent) {
+                tabContent.classList.add('active');
+                // Scroll to top of main content
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
             }
         });
