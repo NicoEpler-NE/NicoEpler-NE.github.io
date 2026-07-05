@@ -113,6 +113,10 @@ body {
     z-index: 2;
 }
 
+.hero.hidden {
+    display: none;
+}
+
 .hero-content {
     max-width: 800px;
     animation: fadeInUp 1s ease-out;
@@ -130,6 +134,65 @@ body {
     box-shadow: var(--glow-primary);
     object-fit: cover;
     background: white;
+}
+
+/* Compact Header */
+.compact-header {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 999;
+    padding: 0.5rem 2rem;
+}
+
+.compact-header.active {
+    display: block;
+}
+
+.compact-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.compact-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.compact-profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    object-fit: cover;
+    background: white;
+}
+
+.compact-profile-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.compact-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.compact-title {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin: 0;
+    line-height: 1.2;
 }
 
 .name {
@@ -247,6 +310,23 @@ body {
 .publication-doi {
     color: var(--secondary-color);
     font-size: 0.9rem;
+}
+
+/* Tab Heading */
+.tab-heading {
+    text-align: center;
+    padding: 2rem 0 1rem 0;
+}
+
+.tab-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+    text-shadow: var(--glow-primary);
 }
 
 /* Main Content */
@@ -564,6 +644,23 @@ main {
     .profile-image {
         width: 150px;
         height: 150px;
+    }
+
+    .compact-profile-image {
+        width: 40px;
+        height: 40px;
+    }
+
+    .compact-name {
+        font-size: 0.9rem;
+    }
+
+    .compact-title {
+        font-size: 0.7rem;
+    }
+
+    .tab-title {
+        font-size: 1.8rem;
     }
     
     .contact-info {

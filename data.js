@@ -9,8 +9,7 @@ const portfolioData = {
         name: "Nico Epler",
         title: "Master of Engineering (Electronic)",
         email: "nicoepler66@gmail.com",
-        phone: "+27 82 653 7180",
-        location: "Zurich, Switzerland",
+        linkedin: "https://www.linkedin.com/in/nico-epler-8089a5223/",
         about: "Electronic engineer (M.Eng Electronic cum laude, B.Eng Mechatronic) specialising in UAV systems and autonomous robotics. Currently working as a UAS Engineer at Flying Robot (Pty) Ltd, focusing on system architecture, integration and flight validation for large-scale ISR quadcopter platforms. Core expertise spans robotic hardware and software development, autonomous systems development, ROS 2/SLAM-based autonomy, computer vision and sensor integration, complemented by embedded hardware design and PCB development.",
         languages: [
             { name: "German", level: "Native" },

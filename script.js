@@ -16,9 +16,14 @@ function populateContent() {
     document.getElementById('name').textContent = portfolioData.personal.name;
     document.getElementById('title').textContent = portfolioData.personal.title;
     document.getElementById('email').textContent = portfolioData.personal.email;
-    document.getElementById('phone').textContent = portfolioData.personal.phone;
-    document.getElementById('location').textContent = portfolioData.personal.location;
+    if (portfolioData.personal.linkedin) {
+        document.getElementById('linkedin').href = portfolioData.personal.linkedin;
+    }
     document.getElementById('about-text').textContent = portfolioData.personal.about;
+    
+    // Compact Header
+    document.getElementById('compact-name').textContent = portfolioData.personal.name;
+    document.getElementById('compact-title').textContent = portfolioData.personal.title;
 
     // Languages
     const languagesContainer = document.querySelector('.languages');
@@ -182,6 +187,8 @@ function initScrollAnimations() {
 function initTabNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
     const tabContents = document.querySelectorAll('.tab-content');
+    const hero = document.querySelector('.hero');
+    const compactHeader = document.getElementById('compact-header');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -199,6 +206,16 @@ function initTabNavigation() {
             const tabContent = document.getElementById(tabId);
             if (tabContent) {
                 tabContent.classList.add('active');
+                
+                // Toggle hero and compact header based on tab
+                if (tabId === 'overview') {
+                    hero.classList.remove('hidden');
+                    compactHeader.classList.remove('active');
+                } else {
+                    hero.classList.add('hidden');
+                    compactHeader.classList.add('active');
+                }
+                
                 // Scroll to top of main content
                 window.scrollTo({
                     top: 0,
