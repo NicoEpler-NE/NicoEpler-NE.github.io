@@ -16,142 +16,133 @@
     <!-- Navigation -->
     <nav class="nav-bar">
         <div class="nav-container">
-            <a href="#overview" class="nav-link active" data-tab="overview">Overview</a>
-            <a href="#education" class="nav-link" data-tab="education">Education</a>
-            <a href="#experience" class="nav-link" data-tab="experience">Work Experience</a>
-            <a href="#projects" class="nav-link" data-tab="projects">Projects</a>
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#profile" class="nav-link">Profile</a>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-content">
-            <div class="profile-image-container">
-                <img src="images/profile_photo.svg" alt="Profile Photo" class="profile-image">
+    <!-- Home Section -->
+    <section id="home" class="page-section active">
+        <header class="hero">
+            <div class="hero-content">
+                <div class="profile-image-container">
+                    <img src="images/profile_photo.jpg" alt="Profile Photo" class="profile-image">
+                </div>
+                <h1 class="name" id="name">Nico Epler</h1>
+                <h2 class="title" id="title">Master of Engineering (Electronic)</h2>
+                <p class="hero-intro" id="hero-intro"></p>
+                
+                <div class="focus-areas">
+                    <h3 class="focus-title">Focus Areas</h3>
+                    <div class="focus-grid" id="focus-areas"></div>
+                </div>
+                
+                <div class="home-publications">
+                    <h3 class="home-section-title">Publications</h3>
+                    <div class="home-publications-list" id="home-publications-list"></div>
+                </div>
+                
+                <div class="home-experience">
+                    <h3 class="home-section-title">Experience</h3>
+                    <div class="home-experience-list" id="home-experience-list"></div>
+                </div>
+                
+                <div class="home-projects">
+                    <h3 class="home-section-title">Projects</h3>
+                    <div class="home-projects-list" id="home-projects-list"></div>
+                </div>
+                
+                <div class="home-profile">
+                    <h3 class="home-section-title">Profile</h3>
+                    <div class="home-profile-list" id="home-profile-list"></div>
+                </div>
+                
+                <div class="current-role" id="current-role"></div>
+                
+                <div class="action-buttons">
+                    <a href="#projects" class="action-btn primary">View Projects</a>
+                    <a href="mailto:nicoepler66@gmail.com" class="action-btn secondary">Email Me</a>
+                    <a href="https://www.linkedin.com/in/nico-epler-8089a5223/" class="action-btn secondary" target="_blank">LinkedIn</a>
+                </div>
             </div>
-            <h1 class="name" id="name">Nico Epler</h1>
-            <h2 class="title" id="title">Master of Engineering (Electronic)</h2>
-            <div class="contact-info">
-                <a href="mailto:nicoepler66@gmail.com" class="contact-link" id="email">nicoepler66@gmail.com</a>
-                <span class="separator">|</span>
-                <a href="https://www.linkedin.com/in/nico-epler-8089a5223/" class="contact-link" id="linkedin" target="_blank">LinkedIn</a>
+        </header>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="page-section">
+        <div class="section-container">
+            <div class="section-heading">
+                <h1 class="section-title">Experience</h1>
             </div>
-            <div class="languages">
-                <span class="language-tag">German (Native)</span>
-                <span class="language-tag">English (Fluent)</span>
-                <span class="language-tag">Afrikaans (Fluent)</span>
+            
+            <div class="timeline" id="experience-timeline"></div>
+            
+            <div class="publications-section">
+                <h2 class="subsection-title">Publications</h2>
+                <div class="publications-list" id="publications-list"></div>
             </div>
         </div>
-    </header>
+    </section>
 
-    <!-- Compact Header for Non-Overview Tabs -->
-    <header class="compact-header" id="compact-header">
-        <div class="compact-header-content">
-            <div class="compact-profile">
-                <img src="images/profile_photo.svg" alt="Profile Photo" class="compact-profile-image">
-                <div class="compact-profile-info">
-                    <h1 class="compact-name" id="compact-name">Nico Epler</h1>
-                    <p class="compact-title" id="compact-title">Master of Engineering (Electronic)</p>
+    <!-- Projects Section -->
+    <section id="projects" class="page-section">
+        <div class="section-container">
+            <div class="section-heading">
+                <h1 class="section-title">Projects</h1>
+            </div>
+            
+            <div class="featured-project" id="featured-project"></div>
+            
+            <div class="projects-grid" id="projects-grid"></div>
+            
+            <div class="hobby-projects-section">
+                <h2 class="subsection-title">Side Projects</h2>
+                <div class="projects-grid" id="hobby-projects-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profile" class="page-section">
+        <div class="section-container">
+            <div class="section-heading">
+                <h1 class="section-title">Profile</h1>
+            </div>
+            
+            <div class="profile-grid">
+                <div class="profile-column">
+                    <div class="profile-section">
+                        <h2 class="subsection-title">Education</h2>
+                        <div class="timeline" id="education-timeline"></div>
+                    </div>
+                    
+                    <div class="profile-section">
+                        <h2 class="subsection-title">Technical Skills</h2>
+                        <div class="skills-categories" id="skills-categories"></div>
+                    </div>
+                </div>
+                
+                <div class="profile-column">
+                    <div class="profile-section">
+                        <h2 class="subsection-title">Achievements</h2>
+                        <div class="achievements-list" id="achievements-list"></div>
+                    </div>
+                    
+                    <div class="profile-section">
+                        <h2 class="subsection-title">Languages</h2>
+                        <div class="languages-list" id="languages-list"></div>
+                    </div>
+                    
+                    <div class="profile-section">
+                        <h2 class="subsection-title">Interests</h2>
+                        <div class="interests-list" id="interests-list"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </header>
-
-    <main>
-        <!-- Overview Tab -->
-        <section class="tab-content active" id="overview">
-            <div class="tab-heading">
-                <h1 class="tab-title">Overview</h1>
-            </div>
-            <div class="section">
-                <h2 class="section-title">About Me</h2>
-                <div class="section-content">
-                    <p class="about-text" id="about-text">
-                        Electronic Engineer with a Master's degree specializing in autonomous systems and mechatronics. 
-                        Passionate about innovative engineering solutions, with experience in quadcopter development, 
-                        3D laser scanning, and automated systems. Strong background in both hardware and software development, 
-                        with a focus on practical applications in mining and industrial environments.
-                    </p>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section-title">Technical Skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3 class="skill-category-title">Programming & Software</h3>
-                        <div class="skill-tags" id="software-skills">
-                            <!-- Skills will be populated by JavaScript -->
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3 class="skill-category-title">Technical & Engineering</h3>
-                        <div class="skill-tags" id="technical-skills">
-                            <!-- Skills will be populated by JavaScript -->
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3 class="skill-category-title">Soft Skills</h3>
-                        <div class="skill-tags" id="soft-skills">
-                            <!-- Skills will be populated by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section-title">Publications</h2>
-                <div class="publications-list" id="publications-list">
-                    <!-- Publications will be populated by JavaScript -->
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section-title">Achievements & Leadership</h2>
-                <div class="achievements-grid" id="achievements-grid">
-                    <!-- Achievements will be populated by JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Tab -->
-        <section class="tab-content" id="education">
-            <div class="tab-heading">
-                <h1 class="tab-title">Education</h1>
-            </div>
-            <div class="section">
-                <h2 class="section-title">Education</h2>
-                <div class="timeline" id="education-timeline">
-                    <!-- Education items will be populated by JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Work Experience Tab -->
-        <section class="tab-content" id="experience">
-            <div class="tab-heading">
-                <h1 class="tab-title">Work Experience</h1>
-            </div>
-            <div class="section">
-                <h2 class="section-title">Work Experience</h2>
-                <div class="timeline" id="experience-timeline">
-                    <!-- Experience items will be populated by JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Tab -->
-        <section class="tab-content" id="projects">
-            <div class="tab-heading">
-                <h1 class="tab-title">Projects</h1>
-            </div>
-            <div class="section">
-                <h2 class="section-title">Notable Projects</h2>
-                <div class="projects-grid" id="projects-grid">
-                    <!-- Projects will be populated by JavaScript -->
-                </div>
-            </div>
-        </section>
-    </main>
+    </section>
 
     <footer class="footer">
         <p>&copy; 2025 Nico Epler. Built for GitHub Pages.</p>

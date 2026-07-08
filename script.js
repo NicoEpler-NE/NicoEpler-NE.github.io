@@ -6,8 +6,8 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     populateContent();
+    initPageNavigation();
     initScrollAnimations();
-    initTabNavigation();
 });
 
 // Populate all content from data.js
@@ -15,55 +15,118 @@ function populateContent() {
     // Personal Information
     document.getElementById('name').textContent = portfolioData.personal.name;
     document.getElementById('title').textContent = portfolioData.personal.title;
-    document.getElementById('email').textContent = portfolioData.personal.email;
-    if (portfolioData.personal.linkedin) {
-        document.getElementById('linkedin').href = portfolioData.personal.linkedin;
-    }
-    document.getElementById('about-text').textContent = portfolioData.personal.about;
     
-    // Compact Header
-    document.getElementById('compact-name').textContent = portfolioData.personal.name;
-    document.getElementById('compact-title').textContent = portfolioData.personal.title;
-
-    // Languages
-    const languagesContainer = document.querySelector('.languages');
-    languagesContainer.innerHTML = '';
-    portfolioData.personal.languages.forEach(lang => {
-        const langTag = document.createElement('span');
-        langTag.className = 'language-tag';
-        langTag.textContent = `${lang.name} (${lang.level})`;
-        languagesContainer.appendChild(langTag);
+    // Home page content
+    document.getElementById('hero-intro').innerHTML = portfolioData.personal.intro.replace(/\n\n/g, '<br><br>');
+    
+    // Focus areas
+    const focusAreasContainer = document.getElementById('focus-areas');
+    focusAreasContainer.innerHTML = '';
+    portfolioData.personal.focusAreas.forEach(area => {
+        const areaCard = document.createElement('div');
+        areaCard.className = 'focus-card';
+        areaCard.textContent = area;
+        focusAreasContainer.appendChild(areaCard);
     });
+    
+    // Home publications
+    populateHomePublications();
+    
+    // Home projects
+    populateHomeProjects();
+    
+    // Home experience
+    populateHomeExperience();
+    
+    // Home profile
+    populateHomeProfile();
+    
+    // Current role
+    const currentRole = portfolioData.personal.currentRole;
+    const currentRoleContainer = document.getElementById('current-role');
+    currentRoleContainer.innerHTML = `
+        <h3 class="current-role-title">Current Role</h3>
+        <div class="current-role-content">
+            <div class="role-position">${currentRole.title}</div>
+            <div class="role-company">${currentRole.company}</div>
+            <div class="role-location">${currentRole.location}</div>
+            <div class="role-period">${currentRole.period}</div>
+        </div>
+    `;
+    
+    // Projects page
+    populateProjects();
+    
+    // Experience page
+    populateExperience();
+    
+    // Profile page
+    populateProfile();
+}
 
-    // Education Timeline
-    const educationTimeline = document.getElementById('education-timeline');
-    educationTimeline.innerHTML = '';
-    portfolioData.education.forEach(edu => {
-        const item = createTimelineItem(edu.year, edu.title, edu.institution, edu.description);
-        educationTimeline.appendChild(item);
-    });
-
-    // Experience Timeline
-    const experienceTimeline = document.getElementById('experience-timeline');
-    experienceTimeline.innerHTML = '';
-    portfolioData.experience.forEach(exp => {
-        const item = createTimelineItem(exp.year, exp.title, exp.company, exp.description);
-        experienceTimeline.appendChild(item);
-    });
-
-    // Skills
-    populateSkills('software-skills', portfolioData.skills.software);
-    populateSkills('technical-skills', portfolioData.skills.technical);
-    populateSkills('soft-skills', portfolioData.skills.soft);
-
-    // Projects
+// Populate projects
+function populateProjects() {
+    const featuredProject = portfolioData.projects.find(p => p.featured);
+    const otherProjects = portfolioData.projects.filter(p => !p.featured);
+    
+    // Featured project
+    if (featuredProject) {
+        const featuredContainer = document.getElementById('featured-project');
+        const imagePath = featuredProject.image ? `images/${featuredProject.image}` : '';
+        const imageHtml = imagePath ? `<img src="${imagePath}" alt="${featuredProject.title}" class="featured-project-image">` : '';
+        const techHtml = featuredProject.technologies.map(t => `<span class="tech-tag">${t}</span>`).join('');
+        const pubLink = featuredProject.publication ? `<a href="${featuredProject.publication}" target="_blank" class="publication-link">View Publication →</a>` : '';
+        
+        featuredContainer.innerHTML = `
+            <h2 class="featured-label">Featured Project</h2>
+            <div class="featured-project-card">
+                ${imageHtml}
+                <div class="featured-project-content">
+                    <h3 class="featured-project-title">${featuredProject.title}</h3>
+                    <div class="featured-project-role">${featuredProject.role}</div>
+                    <p class="featured-project-description">${featuredProject.description}</p>
+                    <div class="featured-project-technologies">
+                        <strong>Technologies:</strong>
+                        <div class="tech-tags">${techHtml}</div>
+                    </div>
+                    <div class="featured-project-results">
+                        <strong>Results:</strong>
+                        <p>${featuredProject.results}</p>
+                    </div>
+                    ${pubLink}
+                </div>
+            </div>
+        `;
+    }
+    
+    // Other projects
     const projectsGrid = document.getElementById('projects-grid');
     projectsGrid.innerHTML = '';
-    portfolioData.projects.forEach(project => {
+    otherProjects.forEach(project => {
         const card = createProjectCard(project);
         projectsGrid.appendChild(card);
     });
+    
+    // Hobby / side projects
+    const hobbyProjectsGrid = document.getElementById('hobby-projects-grid');
+    if (hobbyProjectsGrid && portfolioData.hobbyProjects) {
+        hobbyProjectsGrid.innerHTML = '';
+        portfolioData.hobbyProjects.forEach(project => {
+            const card = createProjectCard(project);
+            hobbyProjectsGrid.appendChild(card);
+        });
+    }
+}
 
+// Populate experience
+function populateExperience() {
+    const experienceTimeline = document.getElementById('experience-timeline');
+    experienceTimeline.innerHTML = '';
+    portfolioData.experience.forEach(exp => {
+        const item = createExperienceTimelineItem(exp);
+        experienceTimeline.appendChild(item);
+    });
+    
     // Publications
     if (portfolioData.publications) {
         const publicationsList = document.getElementById('publications-list');
@@ -73,54 +136,122 @@ function populateContent() {
             publicationsList.appendChild(item);
         });
     }
+}
 
+// Populate profile
+function populateProfile() {
+    // Education
+    const educationTimeline = document.getElementById('education-timeline');
+    educationTimeline.innerHTML = '';
+    portfolioData.education.forEach(edu => {
+        const item = createEducationTimelineItem(edu);
+        educationTimeline.appendChild(item);
+    });
+    
+    // Skills
+    const skillsContainer = document.getElementById('skills-categories');
+    skillsContainer.innerHTML = '';
+    Object.entries(portfolioData.skills).forEach(([category, skills]) => {
+        const categoryDiv = document.createElement('div');
+        categoryDiv.className = 'skill-category';
+        categoryDiv.innerHTML = `
+            <h4 class="skill-category-title">${category}</h4>
+            <div class="skill-tags">
+                ${skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+            </div>
+        `;
+        skillsContainer.appendChild(categoryDiv);
+    });
+    
     // Achievements
-    const achievementsGrid = document.getElementById('achievements-grid');
-    achievementsGrid.innerHTML = '';
+    const achievementsList = document.getElementById('achievements-list');
+    achievementsList.innerHTML = '';
     portfolioData.achievements.forEach(achievement => {
-        const item = createAchievementItem(achievement);
-        achievementsGrid.appendChild(item);
+        const item = document.createElement('div');
+        item.className = 'achievement-item';
+        item.innerHTML = `
+            <div class="achievement-title">${achievement.title}</div>
+            <div class="achievement-year">${achievement.year}</div>
+            <div class="achievement-description">${achievement.description}</div>
+        `;
+        achievementsList.appendChild(item);
+    });
+    
+    // Languages
+    const languagesList = document.getElementById('languages-list');
+    languagesList.innerHTML = '';
+    portfolioData.personal.languages.forEach(lang => {
+        const item = document.createElement('div');
+        item.className = 'language-item';
+        item.innerHTML = `
+            <span class="language-name">${lang.name}</span>
+            <span class="language-level">${lang.level}</span>
+        `;
+        languagesList.appendChild(item);
+    });
+    
+    // Interests
+    const interestsList = document.getElementById('interests-list');
+    interestsList.innerHTML = '';
+    portfolioData.personal.interests.forEach(interest => {
+        const item = document.createElement('span');
+        item.className = 'interest-tag';
+        item.textContent = interest;
+        interestsList.appendChild(item);
     });
 }
 
-// Create a timeline item
-function createTimelineItem(year, title, subtitle, description) {
+// Create experience timeline item
+function createExperienceTimelineItem(exp) {
     const item = document.createElement('div');
     item.className = 'timeline-item';
     
+    const techHtml = exp.technologies ? exp.technologies.map(t => `<span class="tech-tag-small">${t}</span>`).join('') : '';
+    
+    // Handle description as array or string
+    let descriptionHtml;
+    if (Array.isArray(exp.description)) {
+        descriptionHtml = exp.description.map(desc => `<li>${desc}</li>`).join('');
+        descriptionHtml = `<ul class="timeline-description-list">${descriptionHtml}</ul>`;
+    } else {
+        descriptionHtml = `<div class="timeline-description">${exp.description}</div>`;
+    }
+    
     item.innerHTML = `
-        <div class="timeline-date">${year}</div>
-        <div class="timeline-title">${title}</div>
-        <div class="timeline-subtitle">${subtitle}</div>
-        <div class="timeline-description">${description}</div>
+        <div class="timeline-date">${exp.year}</div>
+        <div class="timeline-title">${exp.title}</div>
+        <div class="timeline-subtitle">${exp.company}${exp.location ? ', ' + exp.location : ''}</div>
+        ${descriptionHtml}
+        ${techHtml ? `<div class="timeline-technologies">${techHtml}</div>` : ''}
     `;
     
     return item;
 }
 
-// Populate skills in a category
-function populateSkills(containerId, skills) {
-    const container = document.getElementById(containerId);
-    container.innerHTML = '';
-    skills.forEach(skill => {
-        const tag = document.createElement('span');
-        tag.className = 'skill-tag';
-        tag.textContent = skill;
-        container.appendChild(tag);
-    });
+// Create education timeline item
+function createEducationTimelineItem(edu) {
+    const item = document.createElement('div');
+    item.className = 'timeline-item';
+    
+    item.innerHTML = `
+        <div class="timeline-date">${edu.year}</div>
+        <div class="timeline-title">${edu.title}</div>
+        <div class="timeline-subtitle">${edu.institution}</div>
+        <div class="timeline-description">${edu.description}</div>
+    `;
+    
+    return item;
 }
 
-// Create a project card
+// Create project card
 function createProjectCard(project) {
     const card = document.createElement('div');
     card.className = 'project-card';
     
-    // Use image from project data or fallback to generated filename
     const imagePath = project.image ? `images/${project.image}` : '';
-    
+    const zoomStyle = project.imageZoom ? ` style="transform: scale(${project.imageZoom});"` : '';
+    const imageHtml = imagePath ? `<div class="project-image-frame"><img src="${imagePath}" alt="${project.title}" class="project-image"${zoomStyle}></div>` : '';
     const tagsHtml = project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('');
-    
-    const imageHtml = imagePath ? `<img src="${imagePath}" alt="${project.title}" class="project-image">` : '';
     
     card.innerHTML = `
         ${imageHtml}
@@ -132,38 +263,84 @@ function createProjectCard(project) {
     return card;
 }
 
-// Create a publication item
+// Create publication item
 function createPublicationItem(pub) {
-    const item = document.createElement('div');
+    const item = document.createElement('a');
     item.className = 'publication-item';
+    item.href = `https://doi.org/${pub.doi}`;
+    item.target = '_blank';
     
     item.innerHTML = `
-        <div class="publication-title">${pub.title}</div>
-        <div class="publication-authors">${pub.authors}</div>
-        <div class="publication-journal">${pub.journal}</div>
-        <div class="publication-doi">DOI: ${pub.doi}</div>
+        <span class="publication-icon">📄</span>
+        <div class="publication-content">
+            <div class="publication-title">${pub.title}</div>
+            <div class="publication-journal">${pub.journal}</div>
+        </div>
     `;
     
     return item;
 }
 
-// Create an achievement item
-function createAchievementItem(achievement) {
-    const item = document.createElement('div');
-    item.className = 'achievement-item';
+// Initialize page navigation
+function initPageNavigation() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const pageSections = document.querySelectorAll('.page-section');
+    const projectLinks = document.querySelectorAll('a[href="#projects"]');
     
-    item.innerHTML = `
-        <div class="achievement-title">${achievement.title}</div>
-        <div class="achievement-year">${achievement.year}</div>
-        <div class="achievement-description">${achievement.description}</div>
-    `;
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all links and sections
+            navLinks.forEach(l => l.classList.remove('active'));
+            pageSections.forEach(s => s.classList.remove('active'));
+            
+            // Add active class to clicked link
+            this.classList.add('active');
+            
+            // Show corresponding page section
+            const pageId = this.getAttribute('href').substring(1);
+            const pageSection = document.getElementById(pageId);
+            if (pageSection) {
+                pageSection.classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
     
-    return item;
+    // Handle all "View Projects" links
+    projectLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all nav links and sections
+            navLinks.forEach(l => l.classList.remove('active'));
+            pageSections.forEach(s => s.classList.remove('active'));
+            
+            // Activate projects nav link and section
+            const projectsNavLink = document.querySelector('a[href="#projects"].nav-link');
+            const projectsSection = document.getElementById('projects');
+            
+            if (projectsNavLink) projectsNavLink.classList.add('active');
+            if (projectsSection) projectsSection.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
 }
 
 // Initialize scroll animations
 function initScrollAnimations() {
-    const sections = document.querySelectorAll('.section');
+    const sections = document.querySelectorAll('.profile-section, .featured-project-card, .project-card');
     
     const observerOptions = {
         threshold: 0.1,
@@ -183,45 +360,125 @@ function initScrollAnimations() {
     });
 }
 
-// Initialize tab navigation
-function initTabNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const tabContents = document.querySelectorAll('.tab-content');
-    const hero = document.querySelector('.hero');
-    const compactHeader = document.getElementById('compact-header');
+// Populate home publications
+function populateHomePublications() {
+    const container = document.getElementById('home-publications-list');
+    container.innerHTML = '';
     
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Remove active class from all links and contents
-            navLinks.forEach(l => l.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
-            
-            // Add active class to clicked link
-            this.classList.add('active');
-            
-            // Show corresponding tab content
-            const tabId = this.getAttribute('data-tab');
-            const tabContent = document.getElementById(tabId);
-            if (tabContent) {
-                tabContent.classList.add('active');
-                
-                // Toggle hero and compact header based on tab
-                if (tabId === 'overview') {
-                    hero.classList.remove('hidden');
-                    compactHeader.classList.remove('active');
-                } else {
-                    hero.classList.add('hidden');
-                    compactHeader.classList.add('active');
-                }
-                
-                // Scroll to top of main content
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
+    if (portfolioData.publications && portfolioData.publications.length > 0) {
+        portfolioData.publications.forEach(pub => {
+            const item = document.createElement('a');
+            item.className = 'home-publication-item';
+            item.href = `https://doi.org/${pub.doi}`;
+            item.target = '_blank';
+            item.innerHTML = `
+                <span class="home-icon">📄</span>
+                <div class="home-publication-content">
+                    <div class="home-publication-title">${pub.title}</div>
+                    <div class="home-publication-journal">${pub.journal}</div>
+                </div>
+            `;
+            container.appendChild(item);
         });
+    } else {
+        container.innerHTML = '<div class="home-empty">No publications yet</div>';
+    }
+}
+
+// Populate home projects
+function populateHomeProjects() {
+    const container = document.getElementById('home-projects-list');
+    container.innerHTML = '';
+    
+    // Create grid container
+    const grid = document.createElement('div');
+    grid.className = 'home-projects-grid';
+    
+    portfolioData.projects.forEach((project, index) => {
+        const item = document.createElement('a');
+        item.className = 'home-project-card';
+        item.href = '#projects';
+        const imagePath = project.image ? `images/${project.image}` : '';
+        const imageHtml = imagePath ? `<img src="${imagePath}" alt="${project.title}" class="home-project-image">` : '<div class="home-project-placeholder">🚀</div>';
+        item.innerHTML = `
+            ${imageHtml}
+            <div class="home-project-info">
+                <div class="home-project-title">${project.title}</div>
+            </div>
+        `;
+        grid.appendChild(item);
+    });
+    
+    container.appendChild(grid);
+    
+    // Add view all button
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'home-projects-button';
+    buttonContainer.innerHTML = `<a href="#projects" class="action-btn secondary">View All Projects →</a>`;
+    container.appendChild(buttonContainer);
+}
+
+// Populate home experience
+function populateHomeExperience() {
+    const container = document.getElementById('home-experience-list');
+    container.innerHTML = '';
+    
+    portfolioData.experience.forEach(exp => {
+        const item = document.createElement('div');
+        item.className = 'home-experience-item';
+        const imagePath = exp.image ? `images/${exp.image}` : 'images/UASE.jpg';
+        item.innerHTML = `
+            <img src="${imagePath}" alt="UAS" class="home-experience-icon">
+            <div class="home-experience-content">
+                <div class="home-experience-title">${exp.title}</div>
+                <div class="home-experience-company">${exp.company}</div>
+                <div class="home-experience-year">${exp.year}</div>
+            </div>
+        `;
+        container.appendChild(item);
+    });
+}
+
+// Populate home profile
+function populateHomeProfile() {
+    const container = document.getElementById('home-profile-list');
+    container.innerHTML = '';
+    
+    const profileSections = [
+        { title: 'Education', icon: '🎓', count: portfolioData.education.length },
+        { title: 'Technical Skills', icon: '⚡', count: Object.keys(portfolioData.skills).length },
+        { title: 'Achievements', icon: '🏆', count: portfolioData.achievements.length },
+        { title: 'Languages', icon: '🌍', count: portfolioData.personal.languages.length },
+        { title: 'Interests', icon: '❤️', count: portfolioData.personal.interests.length }
+    ];
+    
+    profileSections.forEach(section => {
+        const item = document.createElement('a');
+        item.className = 'home-profile-item';
+        item.href = '#profile';
+        item.innerHTML = `
+            <span class="home-icon">${section.icon}</span>
+            <div class="home-profile-content">
+                <div class="home-profile-title">${section.title}</div>
+            </div>
+        `;
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Activate profile nav link and section
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageSections = document.querySelectorAll('.page-section');
+            const profileNavLink = document.querySelector('a[href="#profile"].nav-link');
+            const profileSection = document.getElementById('profile');
+            
+            navLinks.forEach(l => l.classList.remove('active'));
+            pageSections.forEach(s => s.classList.remove('active'));
+            
+            if (profileNavLink) profileNavLink.classList.add('active');
+            if (profileSection) profileSection.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        container.appendChild(item);
     });
 }

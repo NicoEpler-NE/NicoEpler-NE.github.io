@@ -10,11 +10,33 @@ const portfolioData = {
         title: "Master of Engineering (Electronic)",
         email: "nicoepler66@gmail.com",
         linkedin: "https://www.linkedin.com/in/nico-epler-8089a5223/",
-        about: "Electronic engineer (M.Eng Electronic cum laude, B.Eng Mechatronic) specialising in UAV systems and autonomous robotics. Currently working as a UAS Engineer at Flying Robot (Pty) Ltd, focusing on system architecture, integration and flight validation for large-scale ISR quadcopter platforms. Core expertise spans robotic hardware and software development, autonomous systems development, ROS 2/SLAM-based autonomy, computer vision and sensor integration, complemented by embedded hardware design and PCB development.",
+        intro: "I am an electronic engineer specialising in UAV systems and autonomous robotics. I hold a Master's degree in Electronic Engineering (cum laude) and a Bachelor's in Mechatronic Engineering from Stellenbosch University.\n\nCurrently working as a UAS Engineer at Flying Robot (Pty) Ltd, I work on the development, integration and testing of UAV platforms, with a focus on large-scale quadcopter systems. My role spans system architecture design, platform construction and configuration, flight-control tuning, test piloting, and payload and sensor integration. This covers the full development cycle from electronic and sensor design through to flight testing, troubleshooting and system optimisation, helping ensure that UAV platforms are reliable and ready for real-world operation.\n\nMy broader expertise includes robotic hardware and software development, autonomous systems development, computer vision, sensor integration, embedded hardware design and PCB development. For my Master's thesis, I designed and developed a quadcopter for autonomous mapping and exploration in GNSS-denied underground mine environments, with part of this work subsequently published in MATEC Web of Conferences. My previous experience also includes mechatronic consulting, mechanical design and fabrication.",
+
+        focusAreas: [
+            "UAV Systems",
+            "Autonomous Robotics",
+            "Computer Vision/Image Processing",
+            "Embedded Electronics/PCB Design",
+            "Mechanical Design/Prototyping"
+        ],
+        currentRole: {
+            title: "Unmanned Aerial Systems Engineer",
+            company: "Flying Robot (Pty) Ltd",
+            location: "South Africa",
+            period: "Oct 2025 -- Present"
+        },
         languages: [
             { name: "German", level: "Native" },
             { name: "English", level: "Fluent" },
             { name: "Afrikaans", level: "Fluent" }
+        ],
+        interests: [
+            "Hiking",
+            "Cycling",
+            "Jogging",
+            "Investing",
+            "Travelling",
+            "Exploring the outdoors"
         ]
     },
 
@@ -31,18 +53,6 @@ const portfolioData = {
             title: "B.Eng (Mechatronic)",
             institution: "Stellenbosch University",
             description: "Bachelor of Engineering in Mechatronics - Golden Key International Honour Society"
-        },
-        {
-            year: "2015-2019",
-            title: "High School",
-            institution: "Otjiwarongo Secondary School",
-            description: "National top-8 academic performer in Namibia (Grade 12), School Representative Council Head Boy, Dux Scholar"
-        },
-        {
-            year: "2008-2014",
-            title: "Primary & Secondary School",
-            institution: "Deutsche Privatschule Otjiwarongo",
-            description: "German Private School Otjiwarongo"
         }
     ],
 
@@ -51,129 +61,150 @@ const portfolioData = {
         {
             year: "Oct 2025 -- Present",
             title: "Unmanned Aerial Systems Engineer",
-            company: "Flying Robot (Pty) Ltd, South Africa",
-            description: "Designed UAV system architecture and carried out platform development, configuration, subsystem integration and validation for large-scale ISR quadcopter platforms. Performed flight-control tuning, UAV test piloting and system analysis. Designed electronic circuits and custom PCBs for embedded sensors. Worked with communication interfaces including serial, I²C, CAN, networking and wireless links."
+            company: "Flying Robot (Pty) Ltd",
+            location: "South Africa",
+            description: [
+                "Designed UAV system architecture and carried out platform development, configuration, subsystem integration and validation for large-scale ISR quadcopter platforms",
+                "Performed flight-control tuning, UAV test piloting and system analysis",
+                "Designed electronic circuits and custom PCBs for embedded sensors",
+                "Worked with communication interfaces including serial, I²C, CAN, networking and wireless links"
+            ],
+            technologies: ["UAV Systems", "PCB Design", "Flight Control", "System Integration"],
+            image: "UASE.jpg"
         },
         {
             year: "2024 -- 2025",
             title: "Graduate Research Engineer -- Master's Thesis",
-            company: "Stellenbosch University, South Africa",
-            description: "Designed and developed a UAV platform for autonomous underground mine mapping and exploration (GNSS-denied). Designed, configured and validated a complete UAV autonomy stack combining embedded hardware, flight-control software, ROS 2 development, visual-inertial odometry and SLAM components. Developed an end-to-end autonomous exploration framework for underground environments."
+            company: "Stellenbosch University",
+            location: "South Africa",
+            description: [
+                "Designed and developed a UAV platform for autonomous underground mine mapping and exploration (GNSS-denied)",
+                "Designed, configured and validated a complete UAV autonomy stack combining embedded hardware, flight-control software, ROS 2 development, visual-inertial odometry and SLAM components",
+                "Developed an end-to-end autonomous exploration framework for underground environments",
+                "Presented the paper \"Autonomous Quadcopter for Rapid Underground Mine Mapping and Exploration\" at RobMech 2025, subsequently published in MATEC Web of Conferences"
+            ],
+            technologies: ["ROS 2", "SLAM", "Autonomous Systems", "Computer Vision"],
+            image: "GRE.jpg"
         },
         {
             year: "Jan 2024 -- Dec 2025",
             title: "UAV Systems and Product Consultant",
-            company: "Phantom Pilots, South Africa",
-            description: "Assisted with quadcopter component selection, system integration and testing for early-stage UAV product development. Consulted on and developed mechatronic side projects, providing practical design input and component-selection support."
+            company: "Phantom Pilots",
+            location: "South Africa",
+            description: [
+                "Assisted with quadcopter component selection, system integration and testing for early-stage UAV product development",
+                "Consulted on and developed mechatronic side projects, providing practical design input and component-selection support"
+            ],
+            technologies: ["UAV Systems", "Mechatronics", "Product Development"],
+            image: "UAVSPC.jpg"
         },
         {
             year: "2022 + 2023",
             title: "Engineering Design and Drafting Intern",
-            company: "Metallum Fabrications, Namibia",
-            description: "Held responsibility for the end-to-end development of steel assemblies, from CAD design and fabrication drawings through to cutting, welding, fitting and installation. Gained hands-on exposure to workshop practices, manufacturing drawings, practical fabrication constraints and tolerancing."
-        },
-        {
-            year: "2024 -- 2025",
-            title: "University Tutor",
-            company: "Stellenbosch University",
-            description: "Tutor for Electro-Techniques"
-        },
-        {
-            year: "2024",
-            title: "University Teaching Assistant",
-            company: "Stellenbosch University",
-            description: "Teaching Assistant for Computer Programming"
-        },
-        {
-            year: "2022",
-            title: "Private Tutor",
-            company: "Self-employed",
-            description: "Tutor for Applied Mathematics"
+            company: "Metallum Fabrications",
+            location: "Namibia",
+            description: [
+                "Held responsibility for the end-to-end development of steel assemblies, from CAD design and fabrication drawings through to cutting, welding, fitting and installation",
+                "Gained hands-on exposure to workshop practices, manufacturing drawings, practical fabrication constraints and tolerancing"
+            ],
+            technologies: ["CAD", "Fabrication", "Mechanical Design"],
+            image: "EDD.jpg"
         }
     ],
 
-    // Skills
+    // Skills grouped by category
     skills: {
-        software: [
+        "Programming & Software": [
             "C Programming",
-            "R Programming",
             "Python Programming",
+            "R Programming",
             "PLC Programming",
             "MATLAB",
             "ROS 2",
-            "Computer Vision and Image Processing",
-            "Machine Learning and Reinforcement Learning Fundamentals",
-            "EasyEDA",
-            "Autodesk Inventor",
-            "Autodesk Fusion",
-            "Onshape",
-            "Microsoft Office: PowerPoint, Word and Excel"
+            "Computer Vision & Image Processing"
         ],
-        technical: [
-            "Robotics, Autonomy and Perception",
+        "Embedded & Electronics": [
+            "Embedded Systems",
+            "PCB Design",
+            "Sensor Integration",
+            "Communication Interfaces (I²C, CAN, Serial)",
+            "Circuit Design"
+        ],
+        "UAV & Robotics": [
             "UAV Systems Engineering",
-            "System Integration and Validation",
-            "Embedded and Electronic Systems",
-            "Mechanical Design and Prototyping",
-            "CAD Modelling",
+            "Autonomous Navigation",
+            "SLAM",
+            "Visual-Inertial Odometry",
+            "Flight Control Tuning"
+        ],
+        "Mechanical Design": [
+            "CAD Modelling (Inventor, Fusion, Onshape)",
             "Design-for-Manufacturing",
             "Additive Manufacturing",
             "Fabrication Drawings",
             "Practical Prototyping"
-        ],
-        soft: [
-            "Strong work ethic",
-            "Honest and reliable",
-            "Organised, punctual and responsible",
-            "Team-oriented",
-            "Innovative",
-            "Eager to learn"
         ]
     },
 
     // Notable Projects
     projects: [
         {
-            title: "Autonomous Underground Mine Mapping Quadcopter",
-            description: "Designed and developed a quadcopter for autonomous mapping and exploration in GNSS-denied underground mine environments (M.Eng Electronic).",
-            tags: ["ROS2", "Autonomous Systems", "Quadcopter", "Mining"],
-            image: "underground_quadcopter.svg"
+            title: "Autonomous Quadcopter for GNSS-denied Underground Mine Mapping",
+            description: "Designed and developed a quadcopter for autonomous mapping and exploration in GNSS-denied underground mine environments. Developed complete UAV autonomy stack combining embedded hardware, flight-control software, ROS 2 development, visual-inertial odometry and SLAM components.",
+            role: "Lead Developer - M.Eng Thesis Project",
+            technologies: ["ROS 2", "SLAM", "Visual-Inertial Odometry", "Autonomous Navigation", "Embedded Systems"],
+            results: "Published research paper in MATEC Web of Conferences. Successfully demonstrated autonomous exploration in simulated and real-world indoor environments.",
+            publication: "https://doi.org/10.1051/matecconf/202541704019",
+            image: "underground_quadcopter.jpg",
+            featured: true
         },
         {
             title: "Handheld 3D Laser Line Scanner",
-            description: "Designed, constructed and evaluated a handheld 3D laser-line scanner (final-year B.Eng project -- 81%).",
+            description: "Designed, constructed and evaluated a handheld 3D laser-line scanner for 3D scanning applications.",
             tags: ["3D Scanning", "Electronics", "Mechatronics"],
-            image: "laser_scanner.svg"
+            image: "laser_scanner.jpg"
         },
         {
-            title: "Multi-functional Light Source",
-            description: "Designed and implemented a multi-functional light source using an STM microcontroller (Electronic Design).",
+            title: "STM Microcontroller Light Source",
+            description: "Designed and implemented a multi-functional light source using an STM microcontroller.",
             tags: ["Electronics", "Microcontrollers", "STM"],
-            image: "light_source.svg"
+            image: "light_source.jpg"
         },
         {
             title: "Automatic Coin Sorter",
-            description: "Designed and constructed an automatic coin sorter (Mechatronics; Group).",
+            description: "Designed and constructed an automatic coin sorting mechanism.",
             tags: ["Mechatronics", "Automation", "Manufacturing"],
-            image: "coin_sorter.svg"
+            image: "coin_sorter.jpg"
         },
         {
-            title: "Industrial Slurry Thickener Mechanism",
-            description: "Designed an internal thickener mechanism for an industrial slurry-settling tank, including drive-system sizing, torque analysis and motor specification (Machine Design; Group).",
+            title: "Industrial Thickener Mechanism",
+            description: "Designed an internal thickener mechanism for an industrial slurry-settling tank, including drive-system sizing, torque analysis and motor specification.",
             tags: ["Machine Design", "Industrial", "Mechanical"],
-            image: "thickener.svg"
-        },
-        {
-            title: "Mine Pump System Analysis",
-            description: "Pump-system analysis and recommendation for a mine (Fluid Mechanics; Group).",
-            tags: ["Fluid Mechanics", "Industrial"],
-            image: "pump_system.svg"
+            image: "thickener.jpg"
         },
         {
             title: "Water Pump Design",
-            description: "Design and part selection for a complete water pump, including manufacturing drawings (Machine Design).",
+            description: "Design and part selection for a complete water pump, including manufacturing drawings.",
             tags: ["Machine Design", "Mechanical"],
-            image: "water_pump.svg"
+            image: "water_pump.jpg"
+        }
+    ],
+
+    // Hobby Projects (smaller side projects outside of engineering work)
+    hobbyProjects: [
+        {
+            title: "Beekeeping & Beehive Construction (SteBees)",
+            description: "Founded SteBees, a small beekeeping venture, building and maintaining beehives and keeping bees. Pitched the venture in the validation group at the 2022 Allan Gray Orbis Foundation Jamboree, winning 2nd place and securing a funding grant.",
+            tags: ["Beekeeping", "Woodworking", "Entrepreneurship"],
+            image: "Bee1.jpg",
+            imageZoom: 1
+        },
+        {
+            title: "Automated Aeroponics System",
+            description: "Designed and built an automated aeroponics system for soil-free plant growth, using timed nutrient-mist cycles to support root development.",
+            tags: ["Automation", "Electronics", "Horticulture"],
+            image: "Aeroponics1.jpg",
+            imageZoom: 1
         }
     ],
 
@@ -188,23 +219,8 @@ const portfolioData = {
         }
     ],
 
-    // Achievements & Leadership
+    // Selected Achievements (excluding minor school leadership roles)
     achievements: [
-        {
-            year: "2016-2019",
-            title: "Namibian National Inline Hockey Team",
-            description: "Assistant Captain 2018, 2019"
-        },
-        {
-            year: "2016-2018",
-            title: "Interactors Board Member",
-            description: "President 2018"
-        },
-        {
-            year: "2016-2017",
-            title: "Otjiwarongo Junior Town Council -- Treasurer",
-            description: "Youth leadership and financial management role"
-        },
         {
             year: "2020-2023",
             title: "Allan Gray Orbis Foundation Candidate Fellow",
@@ -221,19 +237,9 @@ const portfolioData = {
             description: "Engineering competition achievement"
         },
         {
-            year: "2022",
-            title: "Private Tutor -- Applied Mathematics",
-            description: "Academic tutoring"
-        },
-        {
-            year: "2024-2025",
-            title: "University Tutor -- Electro-Techniques",
-            description: "Academic tutoring at university level"
-        },
-        {
-            year: "2024",
-            title: "University Teaching Assistant -- Computer Programming",
-            description: "Teaching assistant role"
+            year: "2016-2019",
+            title: "Namibian National Inline Hockey Team",
+            description: "Assistant Captain 2018, 2019"
         }
     ]
 };
