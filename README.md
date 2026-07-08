@@ -21,6 +21,10 @@ Find the `IPv4 Address` of your computer, for example:
 ```bash
 python3 -m http.server 8000
 ```
+or
+```bash
+py -m http.server 8000
+```
 
 3. On your iPhone, open Safari and go to:
 
