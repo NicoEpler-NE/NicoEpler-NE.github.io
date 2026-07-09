@@ -17,7 +17,8 @@ const portfolioData = {
             "Autonomous Robotics",
             "Computer Vision/Image Processing",
             "Embedded Electronics/PCB Design",
-            "Mechanical Design/Prototyping"
+            "Mechanical Design/Prototyping",
+            "Machine Learning"
         ],
         currentRole: {
             title: "Unmanned Aerial Systems Engineer",
@@ -34,7 +35,6 @@ const portfolioData = {
             "Hiking",
             "Cycling",
             "Jogging",
-            "Investing",
             "Travelling",
             "Exploring the outdoors"
         ]
@@ -46,7 +46,7 @@ const portfolioData = {
             year: "2024-2025",
             title: "M.Eng (Electronic)",
             institution: "Stellenbosch University",
-            description: "Master of Engineering in Electronic Engineering (cum laude) - Golden Key International Honour Society"
+            description: "Master of Engineering in Electronic Engineering (cum laude)"
         },
         {
             year: "2020-2023",
@@ -121,18 +121,21 @@ const portfolioData = {
             "PLC Programming",
             "MATLAB",
             "ROS 2",
-            "Computer Vision & Image Processing"
+            "Computer Vision & Image Processing",
+            "Machine Learning Fundamentals"
         ],
         "Embedded & Electronics": [
             "Embedded Systems",
             "PCB Design",
             "Sensor Integration",
             "Communication Interfaces (I²C, CAN, Serial)",
-            "Circuit Design"
+            "Circuit Design",
+            "networking and wireless communication links"
         ],
         "UAV & Robotics": [
             "UAV Systems Engineering",
             "Autonomous Navigation",
+            "Autonomous Exploration",
             "SLAM",
             "Visual-Inertial Odometry",
             "Flight Control Tuning"
@@ -141,6 +144,7 @@ const portfolioData = {
             "CAD Modelling (Inventor, Fusion, Onshape)",
             "Design-for-Manufacturing",
             "Additive Manufacturing",
+            "Laser & Plasma Cutting",
             "Fabrication Drawings",
             "Practical Prototyping"
         ]
@@ -153,16 +157,28 @@ const portfolioData = {
             description: "Designed and developed a quadcopter for autonomous mapping and exploration in GNSS-denied underground mine environments. Developed complete UAV autonomy stack combining embedded hardware, flight-control software, ROS 2 development, visual-inertial odometry and SLAM components.",
             role: "Lead Developer - M.Eng Thesis Project",
             technologies: ["ROS 2", "SLAM", "Visual-Inertial Odometry", "Autonomous Navigation", "Embedded Systems"],
-            results: "Published research paper in MATEC Web of Conferences. Successfully demonstrated autonomous exploration in simulated and real-world indoor environments.",
+            results: "Presented research paper at RobMech 2025 and published the work in MATEC Web of Conferences. Successfully demonstrated autonomous exploration in both simulated and real-world indoor environments.",
             publication: "https://doi.org/10.1051/matecconf/202541704019",
             image: "underground_quadcopter.jpg",
             featured: true
         },
         {
             title: "Handheld 3D Laser Line Scanner",
-            description: "Designed, constructed and evaluated a handheld 3D laser-line scanner for 3D scanning applications.",
+            description: "Designed, constructed and evaluated a handheld 3D laser-line scanner for surface profiling and 3D reconstruction applications.",
             tags: ["3D Scanning", "Electronics", "Mechatronics"],
             image: "laser_scanner.jpg"
+        },
+        {
+            title: "Large-Scale ISR Quadcopter Platform Development",
+            description: "Worked on the development, configuration, integration and testing of 18\", 22\" and 30\" ISR quadcopter platforms, including flight-control tuning, test piloting and system analysis",
+            tags: ["UAV Systems", "Flight-Control Tuning", "Subsystem Integration", "Test Piloting"],
+            image: "Drones.jpg"
+        },
+        {
+            title: "Machine Learning Pothole Detection and Size Estimation",
+            description: "Developed a machine learning-based pothole detection system that used image data and a reference measuring stick to estimate pothole size and repair-material requirements.",
+            tags: ["Machine Learning", "Computer Vision", "Object Detection", "Image Processing"],
+            image: "Pothole.jpg"
         },
         {
             title: "STM Microcontroller Light Source",
@@ -171,10 +187,23 @@ const portfolioData = {
             image: "light_source.jpg"
         },
         {
+            title: "Automated Insect Tracker",
+            description: "Developed an OpenMV-based computer-vision system for tracking insect movement over extended periods to evaluate the effects of repellents and attractants.",
+            tags: ["Computer Vision", "Image Processing", "OpenMV", "Embedded Systems"],
+            image: "",
+            video: "InsectTracking.mp4"
+        },
+        {
             title: "Automatic Coin Sorter",
             description: "Designed and constructed an automatic coin sorting mechanism.",
-            tags: ["Mechatronics", "Automation", "Manufacturing"],
+            tags: ["Mechatronics", "Automation"],
             image: "coin_sorter.jpg"
+        },
+        {
+            title: "Caterpillar Belly Plate and Shield Assemblies",
+            description: "Led the end-to-end design and development of steel belly-plate and shield assemblies for a CAT 962H wheel loader, from CAD design and fabrication drawings through to cutting, welding, fitting and installation.",
+            tags: ["CAD Design", "Fabrication", "Mechanical Design", "Manufacturing"],
+            image: "Cat.jpg"
         },
         {
             title: "Industrial Thickener Mechanism",
@@ -188,20 +217,21 @@ const portfolioData = {
             tags: ["Machine Design", "Mechanical"],
             image: "water_pump.jpg"
         }
+        
     ],
 
     // Hobby Projects (smaller side projects outside of engineering work)
     hobbyProjects: [
         {
             title: "Beekeeping & Beehive Construction (SteBees)",
-            description: "Founded SteBees, a small beekeeping venture, building and maintaining beehives and keeping bees. Pitched the venture in the validation group at the 2022 Allan Gray Orbis Foundation Jamboree, winning 2nd place and securing a funding grant.",
+            description: "Founded SteBees, a small beekeeping venture, building beehives, managing colonies, and selling raw honey. Pitched the venture at the 2022 Allan Gray Orbis Foundation Jamboree, winning 2nd place and securing a funding grant.",
             tags: ["Beekeeping", "Woodworking", "Entrepreneurship"],
             image: "Bee1.jpg",
             imageZoom: 1
         },
         {
             title: "Automated Aeroponics System",
-            description: "Designed and built an automated aeroponics system for soil-free plant growth, using timed nutrient-mist cycles to support root development.",
+            description: "Designed and built an automated aeroponics system for soil-free plant cultivation, using controlled nutrient-watering cycles for efficient plant growth.",
             tags: ["Automation", "Electronics", "Horticulture"],
             image: "Aeroponics1.jpg",
             imageZoom: 1
@@ -209,6 +239,12 @@ const portfolioData = {
     ],
 
     // Publications
+    otherRoles: [
+        { title: "Private Tutor – Applied Mathematics", year: "2022" },
+        { title: "University Tutor – Electro-Techniques", year: "2024–2025" },
+        { title: "University Teaching Assistant – Computer Programming", year: "2024" }
+    ],
+
     publications: [
         {
             year: "2025",

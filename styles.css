@@ -2,7 +2,8 @@
 
 :root {
     --primary-color: #00f0ff;
-    --secondary-color: #7b2cbf;
+    --secondary-color: #b06aff;
+    /* --secondary-color: #8F52DE; */
     --accent-color: #ff006e;
     --bg-dark: #0a0a0f;
     --bg-darker: #050508;
@@ -53,6 +54,23 @@ body {
     z-index: 1;
     background: radial-gradient(ellipse at 20% 80%, rgba(123, 44, 191, 0.1) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 20%, rgba(0, 240, 255, 0.1) 0%, transparent 50%);
+}
+
+/* Profile Page Forest Background */
+.profile-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+        linear-gradient(180deg, rgba(10, 10, 15, 0.92) 0%, rgba(10, 10, 15, 0.55) 22%, rgba(10, 10, 15, 0.6) 75%, rgba(10, 10, 15, 0.95) 100%),
+        url('images/NicoForest.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
 }
 
 /* Navigation Bar */
@@ -227,6 +245,9 @@ body {
     font-size: 0.95rem;
     min-width: 200px;
     flex: 0 0 calc(33.333% - 0.666rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Home Section Title */
@@ -711,6 +732,40 @@ body {
     gap: 1.5rem;
 }
 
+/* Other Roles */
+.other-roles-section {
+    margin-top: 3rem;
+}
+
+.other-roles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.other-role-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 0.85rem 1.25rem;
+}
+
+.other-role-title {
+    font-weight: 500;
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.other-role-year {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    white-space: nowrap;
+    margin-left: 1rem;
+}
+
 .publication-item {
     display: flex;
     align-items: center;
@@ -757,6 +812,10 @@ body {
     margin-bottom: 2rem;
     text-transform: uppercase;
     letter-spacing: 2px;
+}
+
+.featured-project {
+    margin-bottom: 3rem;
 }
 
 .featured-project-card {
@@ -854,6 +913,26 @@ body {
 
 .publication-link:hover {
     color: var(--secondary-color);
+}
+
+/* Profile Intro */
+.profile-intro {
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    padding: 1.75rem 2rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-left: 3px solid var(--primary-color);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.profile-intro-text {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    line-height: 1.9;
+    margin: 0;
+    font-style: italic;
 }
 
 /* Profile Grid */
@@ -1123,6 +1202,19 @@ body {
     object-fit: cover;
     display: block;
     transform-origin: center;
+}
+
+.project-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+@keyframes videoBounce {
+    0%   { transform: scale(1.00); }
+    50%  { transform: scale(1.06); }
+    100% { transform: scale(1.00); }
 }
 
 .project-card {

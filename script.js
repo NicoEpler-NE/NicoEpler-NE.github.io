@@ -136,6 +136,21 @@ function populateExperience() {
             publicationsList.appendChild(item);
         });
     }
+
+    // Other Roles
+    if (portfolioData.otherRoles) {
+        const otherRolesList = document.getElementById('other-roles-list');
+        otherRolesList.innerHTML = '';
+        portfolioData.otherRoles.forEach(role => {
+            const item = document.createElement('div');
+            item.className = 'other-role-item';
+            item.innerHTML = `
+                <div class="other-role-title">${role.title}</div>
+                ${role.year ? `<div class="other-role-year">${role.year}</div>` : ''}
+            `;
+            otherRolesList.appendChild(item);
+        });
+    }
 }
 
 // Populate profile
@@ -248,13 +263,17 @@ function createProjectCard(project) {
     const card = document.createElement('div');
     card.className = 'project-card';
     
-    const imagePath = project.image ? `images/${project.image}` : '';
-    const zoomStyle = project.imageZoom ? ` style="transform: scale(${project.imageZoom});"` : '';
-    const imageHtml = imagePath ? `<div class="project-image-frame"><img src="${imagePath}" alt="${project.title}" class="project-image"${zoomStyle}></div>` : '';
+    let mediaHtml = '';
+    if (project.video) {
+        mediaHtml = `<div class="project-image-frame"><video class="project-video" autoplay muted loop playsinline style="animation: videoBounce 8s ease-in-out infinite;"><source src="images/${project.video}" type="video/mp4"></video></div>`;
+    } else if (project.image) {
+        const zoomStyle = project.imageZoom ? ` style="transform: scale(${project.imageZoom});"` : '';
+        mediaHtml = `<div class="project-image-frame"><img src="images/${project.image}" alt="${project.title}" class="project-image"${zoomStyle}></div>`;
+    }
     const tagsHtml = project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('');
     
     card.innerHTML = `
-        ${imageHtml}
+        ${mediaHtml}
         <div class="project-title">${project.title}</div>
         <div class="project-description">${project.description}</div>
         <div class="project-tags">${tagsHtml}</div>
@@ -394,14 +413,20 @@ function populateHomeProjects() {
     const grid = document.createElement('div');
     grid.className = 'home-projects-grid';
     
-    portfolioData.projects.forEach((project, index) => {
+    portfolioData.projects.slice(0, 7).forEach((project, index) => {
         const item = document.createElement('a');
         item.className = 'home-project-card';
         item.href = '#projects';
-        const imagePath = project.image ? `images/${project.image}` : '';
-        const imageHtml = imagePath ? `<img src="${imagePath}" alt="${project.title}" class="home-project-image">` : '<div class="home-project-placeholder">🚀</div>';
+        let mediaHtml;
+        if (project.video) {
+            mediaHtml = `<video src="images/${project.video}" class="home-project-image" autoplay muted loop playsinline></video>`;
+        } else if (project.image) {
+            mediaHtml = `<img src="images/${project.image}" alt="${project.title}" class="home-project-image">`;
+        } else {
+            mediaHtml = '<div class="home-project-placeholder">🚀</div>';
+        }
         item.innerHTML = `
-            ${imageHtml}
+            ${mediaHtml}
             <div class="home-project-info">
                 <div class="home-project-title">${project.title}</div>
             </div>
