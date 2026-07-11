@@ -3,12 +3,44 @@
 // This script populates content from data.js
 // ============================================
 
+// Prevent browsers from restoring the previous scroll position on reload
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     populateContent();
     initPageNavigation();
     initScrollAnimations();
+    resetToHomeTop();
 });
+
+// Reset to the top of the home page on load/reload
+function resetToHomeTop() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const pageSections = document.querySelectorAll('.page-section');
+    navLinks.forEach(l => l.classList.remove('active'));
+    pageSections.forEach(s => s.classList.remove('active'));
+    
+    const homeNavLink = document.querySelector('a[href="#home"].nav-link');
+    const homeSection = document.getElementById('home');
+    if (homeNavLink) homeNavLink.classList.add('active');
+    if (homeSection) homeSection.classList.add('active');
+    
+    // Clear any URL hash
+    if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    
+    // Jump to the top immediately, then again once the page has fully loaded
+    function jumpToTop() {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+    jumpToTop();
+    window.addEventListener('load', jumpToTop);
+    setTimeout(jumpToTop, 50);
+}
 
 // Populate all content from data.js
 function populateContent() {
@@ -66,45 +98,41 @@ function populateContent() {
 
 // Populate projects
 function populateProjects() {
-    const featuredProject = portfolioData.projects.find(p => p.featured);
-    const otherProjects = portfolioData.projects.filter(p => !p.featured);
-    
-    // Featured project
-    if (featuredProject) {
-        const featuredContainer = document.getElementById('featured-project');
-        const imagePath = featuredProject.image ? `images/${featuredProject.image}` : '';
-        const imageHtml = imagePath ? `<img src="${imagePath}" alt="${featuredProject.title}" class="featured-project-image">` : '';
-        const techHtml = featuredProject.technologies.map(t => `<span class="tech-tag">${t}</span>`).join('');
-        const pubLink = featuredProject.publication ? `<a href="${featuredProject.publication}" target="_blank" class="publication-link">View Publication →</a>` : '';
-        
-        featuredContainer.innerHTML = `
-            <h2 class="featured-label">Featured Project</h2>
-            <div class="featured-project-card">
-                ${imageHtml}
-                <div class="featured-project-content">
-                    <h3 class="featured-project-title">${featuredProject.title}</h3>
-                    <div class="featured-project-role">${featuredProject.role}</div>
-                    <p class="featured-project-description">${featuredProject.description}</p>
-                    <div class="featured-project-technologies">
-                        <strong>Technologies:</strong>
-                        <div class="tech-tags">${techHtml}</div>
-                    </div>
-                    <div class="featured-project-results">
-                        <strong>Results:</strong>
-                        <p>${featuredProject.results}</p>
-                    </div>
-                    ${pubLink}
-                </div>
-            </div>
-        `;
-    }
-    
-    // Other projects
+    const featuredContainer = document.getElementById('featured-project');
     const projectsGrid = document.getElementById('projects-grid');
     projectsGrid.innerHTML = '';
-    otherProjects.forEach(project => {
-        const card = createProjectCard(project);
-        projectsGrid.appendChild(card);
+    
+    portfolioData.projects.forEach((project, index) => {
+        if (project.featured) {
+            const imagePath = project.image ? `images/${project.image}` : '';
+            const imageHtml = imagePath ? `<img src="${imagePath}" alt="${project.title}" class="featured-project-image">` : '';
+            const techHtml = project.technologies.map(t => `<span class="tech-tag">${t}</span>`).join('');
+            const pubLink = project.publication ? `<a href="${project.publication}" target="_blank" class="publication-link">View Publication →</a>` : '';
+            
+            featuredContainer.innerHTML = `
+                <h2 class="featured-label">Featured Project</h2>
+                <div class="featured-project-card" id="project-card-${index}">
+                    ${imageHtml}
+                    <div class="featured-project-content">
+                        <h3 class="featured-project-title">${project.title}</h3>
+                        <div class="featured-project-role">${project.role}</div>
+                        <p class="featured-project-description">${project.description}</p>
+                        <div class="featured-project-technologies">
+                            <strong>Technologies:</strong>
+                            <div class="tech-tags">${techHtml}</div>
+                        </div>
+                        <div class="featured-project-results">
+                            <strong>Results:</strong>
+                            <p>${project.results}</p>
+                        </div>
+                        ${pubLink}
+                    </div>
+                </div>
+            `;
+        } else {
+            const card = createProjectCard(project, index);
+            projectsGrid.appendChild(card);
+        }
     });
     
     // Hobby / side projects
@@ -122,8 +150,8 @@ function populateProjects() {
 function populateExperience() {
     const experienceTimeline = document.getElementById('experience-timeline');
     experienceTimeline.innerHTML = '';
-    portfolioData.experience.forEach(exp => {
-        const item = createExperienceTimelineItem(exp);
+    portfolioData.experience.forEach((exp, index) => {
+        const item = createExperienceTimelineItem(exp, index);
         experienceTimeline.appendChild(item);
     });
     
@@ -217,9 +245,12 @@ function populateProfile() {
 }
 
 // Create experience timeline item
-function createExperienceTimelineItem(exp) {
+function createExperienceTimelineItem(exp, index) {
     const item = document.createElement('div');
     item.className = 'timeline-item';
+    if (typeof index === 'number') {
+        item.id = `experience-item-${index}`;
+    }
     
     const techHtml = exp.technologies ? exp.technologies.map(t => `<span class="tech-tag-small">${t}</span>`).join('') : '';
     
@@ -259,9 +290,12 @@ function createEducationTimelineItem(edu) {
 }
 
 // Create project card
-function createProjectCard(project) {
+function createProjectCard(project, index) {
     const card = document.createElement('div');
     card.className = 'project-card';
+    if (typeof index === 'number') {
+        card.id = `project-card-${index}`;
+    }
     
     let mediaHtml = '';
     if (project.video) {
@@ -304,7 +338,7 @@ function createPublicationItem(pub) {
 function initPageNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
     const pageSections = document.querySelectorAll('.page-section');
-    const projectLinks = document.querySelectorAll('a[href="#projects"]');
+    const projectLinks = document.querySelectorAll('.action-btn[href="#projects"]');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -357,6 +391,55 @@ function initPageNavigation() {
     });
 }
 
+// Navigate to a specific tab and scroll to a target element.
+// Uses the browser's native scrollIntoView instead of a JS requestAnimationFrame
+// loop calling window.scrollTo every frame. Native smooth scrolling can be handed
+// off to the compositor thread, so it stays smooth even on pages with expensive
+// paint work (backdrop-filter blur, fixed gradient backgrounds, etc.), where a
+// manual main-thread scroll loop tends to stutter, especially in Chrome.
+// Target elements get their offset via the `scroll-margin-top` CSS rule instead
+// of a JS-computed pixel offset, so there's no per-call layout read needed here.
+function navigateToTabAndScroll(tabId, targetId) {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const pageSections = document.querySelectorAll('.page-section');
+    const targetNavLink = document.querySelector(`a[href="#${tabId}"].nav-link`);
+    const targetSection = document.getElementById(tabId);
+    
+    navLinks.forEach(l => l.classList.remove('active'));
+    pageSections.forEach(s => s.classList.remove('active'));
+    
+    if (targetNavLink) targetNavLink.classList.add('active');
+    if (targetSection) targetSection.classList.add('active');
+    
+    // The section just swapped from underneath us, so the page is often much
+    // shorter than it was a moment ago. If we were scrolled deep into the old
+    // section, the browser immediately clamps scrollTop to the new (shorter)
+    // max — which can visually land near the bottom of the new section for a
+    // frame before our own scroll runs. Snapping back to the top here, in the
+    // same synchronous tick as the class swap, happens before that frame is
+    // ever painted, so the visible motion is just top -> target, not
+    // top -> clamped bottom -> target.
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const scrollBehavior = reducedMotion ? 'auto' : 'smooth';
+    
+    if (targetId) {
+        const target = document.getElementById(targetId);
+        if (target) {
+            // Let the section finish laying out at its new scroll-0 position
+            // before starting the smooth scroll to the target.
+            requestAnimationFrame(() => {
+                target.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
+            });
+            return;
+        }
+    }
+    
+    // No specific target within the section: just go to the top of the page.
+    window.scrollTo({ top: 0, left: 0, behavior: scrollBehavior });
+}
+
 // Initialize scroll animations
 function initScrollAnimations() {
     const sections = document.querySelectorAll('.profile-section, .featured-project-card, .project-card');
@@ -390,6 +473,7 @@ function populateHomePublications() {
             item.className = 'home-publication-item';
             item.href = `https://doi.org/${pub.doi}`;
             item.target = '_blank';
+            item.rel = 'noopener noreferrer';
             item.innerHTML = `
                 <span class="home-icon">📄</span>
                 <div class="home-publication-content">
@@ -431,6 +515,10 @@ function populateHomeProjects() {
                 <div class="home-project-title">${project.title}</div>
             </div>
         `;
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            navigateToTabAndScroll('projects', `project-card-${index}`);
+        });
         grid.appendChild(item);
     });
     
@@ -448,9 +536,10 @@ function populateHomeExperience() {
     const container = document.getElementById('home-experience-list');
     container.innerHTML = '';
     
-    portfolioData.experience.forEach(exp => {
-        const item = document.createElement('div');
+    portfolioData.experience.forEach((exp, index) => {
+        const item = document.createElement('a');
         item.className = 'home-experience-item';
+        item.href = '#experience';
         const imagePath = exp.image ? `images/${exp.image}` : 'images/UASE.jpg';
         item.innerHTML = `
             <img src="${imagePath}" alt="UAS" class="home-experience-icon">
@@ -460,6 +549,10 @@ function populateHomeExperience() {
                 <div class="home-experience-year">${exp.year}</div>
             </div>
         `;
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            navigateToTabAndScroll('experience', `experience-item-${index}`);
+        });
         container.appendChild(item);
     });
 }
@@ -470,11 +563,11 @@ function populateHomeProfile() {
     container.innerHTML = '';
     
     const profileSections = [
-        { title: 'Education', icon: '🎓', count: portfolioData.education.length },
-        { title: 'Technical Skills', icon: '⚡', count: Object.keys(portfolioData.skills).length },
-        { title: 'Achievements', icon: '🏆', count: portfolioData.achievements.length },
-        { title: 'Languages', icon: '🌍', count: portfolioData.personal.languages.length },
-        { title: 'Interests', icon: '❤️', count: portfolioData.personal.interests.length }
+        { title: 'Education', icon: '🎓', count: portfolioData.education.length, target: 'profile-education' },
+        { title: 'Technical Skills', icon: '⚡', count: Object.keys(portfolioData.skills).length, target: 'profile-skills' },
+        { title: 'Achievements', icon: '🏆', count: portfolioData.achievements.length, target: 'profile-achievements' },
+        { title: 'Languages', icon: '🌍', count: portfolioData.personal.languages.length, target: 'profile-languages' },
+        { title: 'Interests', icon: '❤️', count: portfolioData.personal.interests.length, target: 'profile-interests' }
     ];
     
     profileSections.forEach(section => {
@@ -489,21 +582,22 @@ function populateHomeProfile() {
         `;
         item.addEventListener('click', function(e) {
             e.preventDefault();
-            // Activate profile nav link and section
-            const navLinks = document.querySelectorAll('.nav-link');
-            const pageSections = document.querySelectorAll('.page-section');
-            const profileNavLink = document.querySelector('a[href="#profile"].nav-link');
-            const profileSection = document.getElementById('profile');
-            
-            navLinks.forEach(l => l.classList.remove('active'));
-            pageSections.forEach(s => s.classList.remove('active'));
-            
-            if (profileNavLink) profileNavLink.classList.add('active');
-            if (profileSection) profileSection.classList.add('active');
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            navigateToTabAndScroll('profile', section.target);
         });
         container.appendChild(item);
     });
+    
+    // Add view profile button
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'home-profile-button';
+    const button = document.createElement('a');
+    button.className = 'action-btn secondary';
+    button.href = '#profile';
+    button.textContent = 'View Profile →';
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        navigateToTabAndScroll('profile', null);
+    });
+    buttonContainer.appendChild(button);
+    container.appendChild(buttonContainer);
 }
